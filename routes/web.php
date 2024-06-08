@@ -5,6 +5,7 @@ use App\Http\Controllers\Auth\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\SubCategoryController;
 
 /*
 |--------------------------------------------------------------------------
@@ -35,6 +36,7 @@ Route::
                 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
                 Route::resource('/admin_list', 'AdminController');
                 Route::resource('/category', 'CategoryController');
+                Route::resource('/sub_category', 'SubCategoryController');
                 Route::resource('/product', 'AdminController');
             });
         }

@@ -7,8 +7,8 @@
                 <li class="breadcrumb-item"><a href="#">Tables</a></li>
                 <li class="breadcrumb-item active" aria-current="page">Admin List Table</li>
             </ol>
-            <a href="{{ route('admin.category.create') }}" class="btn btn-primary">Create
-               Category</a>
+            <a href="{{ route('admin.sub_category.create') }}" class="btn btn-primary"> Create
+                Sub Category</a>
         </nav>
 
         <div class="row">
@@ -22,8 +22,9 @@
                                     <tr>
                                         <th>ID</th>
                                         <th>Name</th>
+                                        <th>Category Name</th>
                                         <th>Description</th>
-                                        <th>Image</th>
+                                        {{-- <th>Image</th> --}}
                                         <th>Status</th>
                                         <th>Action</th>
                                     </tr>
@@ -31,18 +32,26 @@
 
                                 <tbody>
 
-                                    @foreach ($categories as $category)
+                                    @foreach ($sub_categories as $sub_category)
                                         <tr>
-                                            <td>{{ $category->id }}</td>
-                                            <td>{{ $category->name }}</td>
+                                            <td>{{ $sub_category->id }}</td>
+
+                                            <td>{{ $sub_category->name }}</td>
                                             <td>
-                                                {!! Str::limit(strip_tags($category->description), 30, '...') !!}
+                                                @if ($sub_category->category)
+                                                    {{ $sub_category->category->name }}
+                                                @else
+                                                    No Category
+                                                @endif
                                             </td>
                                             <td>
-                                                <img src="{{ asset($category->image) }}" alt="">
+                                                {!! Str::limit(strip_tags($sub_category->description), 30, '...') !!}
                                             </td>
+                                            {{-- <td>
+                                                <img src="{{ asset($sub_category->image) }}" alt="">
+                                            </td> --}}
                                             <td>
-                                                @if ($category->status === 1)
+                                                @if ($sub_category->status === 1)
                                                     <span class="badge bg-success">Active</span>
                                                 @else
                                                     <span class="badge bg-primary">De Active</span>
@@ -50,25 +59,25 @@
                                             </td>
                                             <td>
                                                 <div class="d-flex align-items-center gap-2">
-                                                    <a href="{{ route('admin.category.edit', $category->id) }}"
+                                                    <a href="{{ route('admin.sub_category.edit', $sub_category->id) }}"
                                                         class="btn btn-primary btn-icon">
 
                                                         <i data-feather="edit"></i></a>
 
-
-                                                    @if (Auth::user()->role_id === 1)
-                                                        <form id="delete_form_{{ $category->id }}"
-                                                            action="{{ route('admin.category.destroy', $category->id) }}"
+                                                        @if (Auth::user()->role_id === 1)
+                                                        <form id="delete_form_{{ $sub_category->id }}"
+                                                            action="{{ route('admin.sub_category.destroy', $sub_category->id) }}"
                                                             method="POST" style="display: none;">
                                                             @csrf
                                                             @method('DELETE')
                                                         </form>
 
                                                         <button type="button" class="btn btn-danger btn-icon delete-button"
-                                                        onclick="deleteId({{ $category->id }})">
+                                                        onclick="deleteId({{ $sub_category->id }})">
                                                         <i data-feather="trash"></i>
                                                     </button>
                                                     @endif
+
                                                 </div>
                                             </td>
                                         </tr>

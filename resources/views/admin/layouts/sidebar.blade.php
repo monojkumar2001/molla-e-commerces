@@ -34,6 +34,13 @@
                       <span class="link-title">Catetory</span>
                   </a>
               </li>
+              <li class="nav-item">
+                  <a href="{{ route('admin.sub_category.index') }}"
+                      class="nav-link @if (Request::segment(2) == 'admin') active @endif">
+                      <i class="link-icon" data-feather="box"></i>
+                      <span class="link-title">Sub Category</span>
+                  </a>
+              </li>
 
           </ul>
       </div>

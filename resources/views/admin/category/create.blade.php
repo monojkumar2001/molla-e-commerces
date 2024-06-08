@@ -16,8 +16,7 @@
 
                         <h6 class="card-title">Create Category</h6>
 
-                        <form  action="{{ route('admin.category.store') }}" method="POST"
-                            enctype="multipart/form-data">
+                        <form action="{{ route('admin.category.store') }}" method="POST" enctype="multipart/form-data">
                             @csrf
 
                             <div class="mb-3">
@@ -26,15 +25,13 @@
                                     placeholder="Enter Name">
                             </div>
 
-                            <div class="col-md-6">
-                                <div class="mb-3">
-                                    <label for="image" class="form-label">Image</label>
-                                    <input id="image" class="form-control" name="image" type="file">
-                                </div>
+                            <div class="mb-3">
+                                <label for="image" class="form-label">Image</label>
+                                <input id="image" class="form-control" name="image" type="file">
                             </div>
                             <div class="mb-3">
                                 <label for="description" class="form-label">Description</label>
-                                <textarea cols="30" rows="10" id="description" class="form-control" name="description" type="text"></textarea>
+                                <textarea class="form-control" name="description" type="text"id="tinymceExample" cols="30" rows="10"></textarea>
                             </div>
                             <div class="mb-3">
                                 <div class="form-check">

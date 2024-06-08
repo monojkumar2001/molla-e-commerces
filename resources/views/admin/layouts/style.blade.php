@@ -6,9 +6,11 @@
 
 	<!-- core:css -->
 	<link rel="stylesheet" href="{{asset('admin/assets/vendors/core/core.css')}}">
+    <link rel="stylesheet" href="{{ asset('admin/assets/vendors/select2/select2.min.css') }}" />
 	<!-- endinject -->
 
 	<!-- Plugin css for this page -->
+    <script src="{{asset('admin/assets/vendors/tinymce/tinymce.min.js')}}"></script>
 	<link rel="stylesheet" href="{{asset('admin/assets/vendors/flatpickr/flatpickr.min.css')}}">
 	<!-- End plugin css for this page -->
     <link rel="stylesheet" href="{{asset('admin/assets/vendors/datatables.net-bs5/dataTables.bootstrap5.css')}}">
