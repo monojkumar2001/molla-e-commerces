@@ -17,14 +17,17 @@
                     <div class="card-body">
                         <h6 class="card-title">Admin List Table</h6>
                         <div class="table-responsive">
+                            
                             <table id="dataTableExample" class="table">
                                 <thead>
                                     <tr>
                                         <th>ID</th>
-                                        <th>Name</th>
+
                                         <th>Category Name</th>
+                                        <th>Name</th>
                                         <th>Description</th>
                                         {{-- <th>Image</th> --}}
+                                        <th>Created At</th>
                                         <th>Status</th>
                                         <th>Action</th>
                                     </tr>
@@ -35,8 +38,6 @@
                                     @foreach ($sub_categories as $sub_category)
                                         <tr>
                                             <td>{{ $sub_category->id }}</td>
-
-                                            <td>{{ $sub_category->name }}</td>
                                             <td>
                                                 @if ($sub_category->category)
                                                     {{ $sub_category->category->name }}
@@ -44,12 +45,15 @@
                                                     No Category
                                                 @endif
                                             </td>
+                                            <td>{{ $sub_category->name }}</td>
+
                                             <td>
                                                 {!! Str::limit(strip_tags($sub_category->description), 30, '...') !!}
                                             </td>
                                             {{-- <td>
                                                 <img src="{{ asset($sub_category->image) }}" alt="">
                                             </td> --}}
+                                            <td>{{ $sub_category->created_at->format('d-m-Y') }}</td>
                                             <td>
                                                 @if ($sub_category->status === 1)
                                                     <span class="badge bg-success">Active</span>
@@ -64,7 +68,7 @@
 
                                                         <i data-feather="edit"></i></a>
 
-                                                        @if (Auth::user()->role_id === 1)
+                                                    @if (Auth::user()->role_id === 1)
                                                         <form id="delete_form_{{ $sub_category->id }}"
                                                             action="{{ route('admin.sub_category.destroy', $sub_category->id) }}"
                                                             method="POST" style="display: none;">
@@ -73,9 +77,9 @@
                                                         </form>
 
                                                         <button type="button" class="btn btn-danger btn-icon delete-button"
-                                                        onclick="deleteId({{ $sub_category->id }})">
-                                                        <i data-feather="trash"></i>
-                                                    </button>
+                                                            onclick="deleteId({{ $sub_category->id }})">
+                                                            <i data-feather="trash"></i>
+                                                        </button>
                                                     @endif
 
                                                 </div>

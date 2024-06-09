@@ -18,7 +18,8 @@
 
 <body>
     <div class="main-wrapper">
-
+        {{-- @include('admin.sweetalert.alert') --}}
+        @include('sweetalert::alert')
         @include('admin.layouts.sidebar')
 
         <div class="page-wrapper">

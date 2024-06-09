@@ -13,7 +13,7 @@
 <script src="{{ asset('admin/assets/js/template.js') }}"></script>
 <!-- endinject -->
 <script src="{{ asset('admin/assets/js/data-table.js') }}"></script>
-<script src="{{ asset('admin/assets/js/sweet-alert.js') }}"></script>
+{{-- <script src="{{ asset('admin/assets/js/sweet-alert.js') }}"></script> --}}
 <script src="{{ asset('admin/assets/js/sweetalert2@11.js') }}"></script>
 
 <!-- Custom js for this page -->

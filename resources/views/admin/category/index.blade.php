@@ -24,6 +24,7 @@
                                         <th>Name</th>
                                         <th>Description</th>
                                         <th>Image</th>
+                                        <th>Created At</th>
                                         <th>Status</th>
                                         <th>Action</th>
                                     </tr>
@@ -41,6 +42,7 @@
                                             <td>
                                                 <img src="{{ asset($category->image) }}" alt="">
                                             </td>
+                                            <td>{{ $category->created_at->format('d-m-Y') }}</td>
                                             <td>
                                                 @if ($category->status === 1)
                                                     <span class="badge bg-success">Active</span>
