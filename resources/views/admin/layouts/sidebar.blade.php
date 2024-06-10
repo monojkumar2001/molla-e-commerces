@@ -41,6 +41,13 @@
                       <span class="link-title">Sub Category</span>
                   </a>
               </li>
+              <li class="nav-item">
+                  <a href="{{ route('admin.product.index') }}"
+                      class="nav-link @if (Request::segment(2) == 'product') active @endif">
+                      <i class="link-icon" data-feather="box"></i>
+                      <span class="link-title">Product</span>
+                  </a>
+              </li>
 
           </ul>
       </div>

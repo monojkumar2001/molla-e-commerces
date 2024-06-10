@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\SubCategoryController;
+use App\Http\Controllers\Admin\ProductController;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,7 +38,7 @@ Route::
                 Route::resource('/admin_list', 'AdminController');
                 Route::resource('/category', 'CategoryController');
                 Route::resource('/sub_category', 'SubCategoryController');
-                Route::resource('/product', 'AdminController');
+                Route::resource('/product', 'ProductController');
             });
         }
     );

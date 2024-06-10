@@ -5,7 +5,7 @@
         <nav class="page-breadcrumb d-flex align-center justify-content-between">
             <ol class="breadcrumb">
                 <li class="breadcrumb-item"><a href="#">Tables</a></li>
-                <li class="breadcrumb-item active" aria-current="page">Admin List Table</li>
+                <li class="breadcrumb-item active" aria-current="page">Sub Category List Table</li>
             </ol>
             <a href="{{ route('admin.sub_category.create') }}" class="btn btn-primary"> Create
                 Sub Category</a>
