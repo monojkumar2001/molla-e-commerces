@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\AdminController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\ProductController;
+use App\Http\Controllers\Admin\BrandController;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,6 +39,7 @@ Route::
                 Route::resource('/admin_list', 'AdminController');
                 Route::resource('/category', 'CategoryController');
                 Route::resource('/sub_category', 'SubCategoryController');
+                Route::resource('/brand', 'BrandController');
                 Route::resource('/product', 'ProductController');
             });
         }

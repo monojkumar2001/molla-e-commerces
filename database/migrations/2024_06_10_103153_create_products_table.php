@@ -20,8 +20,9 @@ return new class extends Migration {
             $table->foreignId('category_id')->constrained()->onDelete('cascade');
             $table->foreignId('sub_category_id')->constrained()->onDelete('cascade');
             $table->foreignId('brand_id')->constrained()->onDelete('cascade');
-            $table->float('price',10,2);
-            $table->float('old_price',10,2);
+            $table->json('image');
+            $table->decimal('price', 10, 2);
+            $table->decimal('old_price', 10, 2);
             $table->integer('stock_quantity');
             $table->text('short_description')->nullable();
             $table->longText('description')->nullable();

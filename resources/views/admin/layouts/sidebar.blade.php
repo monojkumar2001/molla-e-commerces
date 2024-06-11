@@ -42,6 +42,13 @@
                   </a>
               </li>
               <li class="nav-item">
+                  <a href="{{ route('admin.brand.index') }}"
+                      class="nav-link @if (Request::segment(2) == 'brand') active @endif">
+                      <i class="link-icon" data-feather="box"></i>
+                      <span class="link-title">Brand</span>
+                  </a>
+              </li>
+              <li class="nav-item">
                   <a href="{{ route('admin.product.index') }}"
                       class="nav-link @if (Request::segment(2) == 'product') active @endif">
                       <i class="link-icon" data-feather="box"></i>

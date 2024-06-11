@@ -38,27 +38,18 @@ class SubCategoryController extends Controller
         $validatedData = $request->validate([
             'name' => 'required',
             'category_id' => 'required',
-            'description' => 'nullable',
             'meta_title' => 'nullable',
             'meta_keywords' => 'nullable',
             'meta_description' => 'nullable',
-            'image' => 'nullable',
         ]);
 
         $sub_category = new SubCategory();
         $sub_category->name = $validatedData['name'];
         $sub_category->category_id = $validatedData['category_id'];
-        $sub_category->description = $validatedData['description'];
-        $sub_category->description = $validatedData['description'];
         $sub_category->meta_title = $validatedData['meta_title'];
         $sub_category->meta_keywords = $validatedData['meta_keywords'];
         $sub_category->meta_description = $validatedData['meta_description'];
-        if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            $imageName = time() . '_' . $image->getClientOriginalName();
-            $image->move(public_path('admin/assets/images/sub_category'), $imageName);
-            $sub_category->image = 'admin/assets/images/sub_category/' . $imageName;
-        }
+       
         $slug = Str::lower(str_replace('', '-', '', $validatedData['name']));
         $sub_category->slug = $slug;
         $status = $request->has('status') ? true : false;
@@ -95,36 +86,19 @@ class SubCategoryController extends Controller
         $validatedData = $request->validate([
             'name' => 'required',
             'category_id' => 'required',
-            'description' => 'nullable',
             'meta_title' => 'nullable',
             'meta_keywords' => 'nullable',
             'meta_description' => 'nullable',
-            'image' => 'nullable',
         ]);
 
         $sub_category = SubCategory::findOrFail($id);
         $sub_category->name = $validatedData['name'];
         $sub_category->category_id = $validatedData['category_id'];
-        $sub_category->description = $validatedData['description'];
         $sub_category->meta_title = $validatedData['meta_title'];
         $sub_category->meta_keywords = $validatedData['meta_keywords'];
         $sub_category->meta_description = $validatedData['meta_description'];
 
-        if ($request->hasFile('image')) {
-            // Delete the old image if it exists
-            if ($sub_category->image) {
-                $oldImagePath = public_path($sub_category->image);
-                if (file_exists($oldImagePath)) {
-                    unlink($oldImagePath);
-                }
-            }
-
-            // Save the new image
-            $image = $request->file('image');
-            $imageName = time() . '_' . $image->getClientOriginalName();
-            $image->move(public_path('admin/assets/images/sub_category'), $imageName);
-            $sub_category->image = 'admin/assets/images/sub_category/' . $imageName;
-        }
+        
         $slug = Str::lower(str_replace('', '-', '', $validatedData['name']));
         $sub_category->slug = $slug;
         $status = $request->has('status') ? true : false;
@@ -139,12 +113,6 @@ class SubCategoryController extends Controller
     public function destroy($id)
     {
         $sub_category = SubCategory::findOrFail($id);
-        if ($sub_category->image) {
-            $oldImagePath = public_path($sub_category->image);
-            if (file_exists($oldImagePath)) {
-                unlink($oldImagePath);
-            }
-        }
         $sub_category->delete();
         return redirect()->route('admin.sub_category.index')->with('success', 'Sub Category Deleted Successfully');
     }

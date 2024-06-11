@@ -1,13 +1,11 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Admin;
 
 use App\Models\Brand;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-
-use function Ramsey\Uuid\v1;
-
+use App\Http\Controllers\Controller;
 class BrandController extends Controller
 {
     /**
@@ -96,7 +94,7 @@ class BrandController extends Controller
         $brand->status = $status;
         $brand->save();
 
-        return redirect()->route('admin.brand.index')->with('success', 'Brand Created Successfully');
+        return redirect()->route('admin.brand.index')->with('success', 'Brand Update Successfully');
     }
 
     /**
