@@ -8,7 +8,10 @@ use Illuminate\Support\Str;
 use App\Http\Controllers\Controller;
 use App\Models\Brand;
 use App\Models\Category;
+use App\Models\ProductVariant;
 use App\Models\SubCategory;
+use Illuminate\Support\Facades\Log;
+
 
 class ProductController extends Controller
 {
@@ -18,7 +21,7 @@ class ProductController extends Controller
     public function index()
     {
         $data['header_title'] = 'Product';
-        $products = Product::all();
+        $products = Product::with('variants')->get();
         return view('admin.product.index', compact('products'), $data);
     }
 
@@ -31,7 +34,7 @@ class ProductController extends Controller
         $categories = Category::orderBy("created_at", "desc")->get();
         $sub_categories = SubCategory::orderBy("created_at", "desc")->get();
         $brands = Brand::orderBy("created_at", "desc")->get();
-        return view('admin.product.create', compact('categories','sub_categories','brands'), $data);
+        return view('admin.product.create', compact('categories', 'sub_categories', 'brands'), $data);
     }
 
     /**
@@ -55,8 +58,9 @@ class ProductController extends Controller
             'description' => 'nullable',
             'additional_information' => 'nullable',
             'shipping_returns' => 'nullable',
+            'variant' => 'array'
         ]);
-
+        Log::info('Validated data: ', $validatedData);
         $product = new Product();
         $product->product_title = $validatedData['product_title'];
         $product->slug = Str::lower(str_replace('', '-', '', $validatedData['product_title']));
@@ -87,6 +91,20 @@ class ProductController extends Controller
         $product->image = json_encode($images);
         $product->status = $request->has('status') ? true : false;
         $product->save();
+
+        if (!empty($validatedData['variant'])) {
+            foreach ($validatedData['variant'] as $variant) {
+                Log::info('Processing variant: ', $variant);
+                $product->variants()->create([
+                    'color' => $variant['color'] ?? null,
+                    'size' => $variant['size'] ?? null,
+                    'price' => $variant['price'],
+                    'stock_quantity' => $variant['stock_quantity']
+                ]);
+            }
+        }
+        
+        return redirect()->route('admin.product.index')->with('success', 'Product created successfully.');
 
     }
 

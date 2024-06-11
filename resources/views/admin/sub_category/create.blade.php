@@ -24,7 +24,7 @@
 
                                 <div class="col-md-6">
                                     <div class="mb-3">
-                                        <label for="name" class="form-label">Name</label>
+                                        <label for="name" class="form-label">Name <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" id="name" name="name"
                                             autocomplete="off" placeholder="Enter Name">
                                     </div>
@@ -34,7 +34,7 @@
                                         <label for="category_id" class="form-label">Category</label>
                                         <select id="category_id" name="category_id"
                                             class="js-example-basic-single form-control form-select" required>
-                                    
+
                                             @foreach ($categories as $category)
                                                 <option value="{{ $category->id }}">{{ $category->name }}</option>
                                             @endforeach

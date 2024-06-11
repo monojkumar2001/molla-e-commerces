@@ -23,7 +23,7 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="mb-3">
-                                        <label for="name" class="form-label">Name</label>
+                                        <label for="name" class="form-label">Name <span class="text-danger">*</span></label>
                                         <input type="text" class="form-control" value="{{ $category->name }}"
                                             id="name" name="name" autocomplete="off" placeholder="Enter Name">
                                     </div>

@@ -38,7 +38,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-3">
-                                        <label for="meta_keywords" class="form-label">meta_keywords</label>
+                                        <label for="meta_keywords" class="form-label">Meta Keywords</label>
                                         <input type="text" class="form-control" id="meta_keywords" name="meta_keywords"
                                             autocomplete="off" placeholder="Enter meta keywords">
                                     </div>
@@ -90,7 +90,7 @@
                                     <div class="mb-3">
                                         <label for="stock_quantity" class="form-label">Stock Quantity <span
                                                 class=' text-danger'>*</span></label>
-                                        <input type="numnber" class="form-control" id="stock_quantity" name="stock_quantity"
+                                        <input type="number" class="form-control" id="stock_quantity" name="stock_quantity"
                                             autocomplete="off" placeholder="Enter stock quantity">
                                     </div>
                                 </div>
@@ -109,7 +109,7 @@
                                     <div class="mb-3">
                                         <label for="price" class="form-label">Price <span
                                                 class=' text-danger'>*</span></label>
-                                        <input type="numnber" class="form-control" id="price" name="price"
+                                        <input type="number" class="form-control" id="price" name="price"
                                             autocomplete="off" placeholder="Enter Price">
                                     </div>
                                 </div>
@@ -117,7 +117,7 @@
                                     <div class="mb-3">
                                         <label for="old_price" class="form-label">Old Price <span
                                                 class='text-danger'>*</span></label>
-                                        <input type="numnber" class="form-control" id="old_price" name="old_price"
+                                        <input type="number" class="form-control" id="old_price" name="old_price"
                                             autocomplete="off" placeholder="Enter old price">
                                     </div>
                                 </div>
@@ -142,6 +142,50 @@
                                     <label for="shipping_returns" class="form-label">Shipping Returns</label>
                                     <textarea class="form-control" name="shipping_returns" type="text"id="tinymceExample" cols="30"
                                         rows="10"></textarea>
+                                </div>
+
+                                <div class="mb-3">
+                                    <label class="form-label">Product Variant</label>
+                                    <div id="variants">
+                                        <div class="variant">
+                                            <div class="row">
+                                                <div class="col-md-3">
+                                                    <div class="mb-3">
+                                                        <label for="variants[0][color]" class="form-label">Color</label>
+                                                        <input type="text" id="variants[0][color]"
+                                                            class="form-control" name="variants[0][color]"
+                                                            placeholder="Color">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="mb-3">
+                                                        <label for="variants[0][size]" class="form-label">Size</label>
+                                                        <input type="text" id="variants[0][size]" class="form-control"
+                                                            name="variants[0][size]" placeholder="Size">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="mb-3">
+                                                        <label for="variants[0][price]" class="form-label">Price</label>
+                                                        <input type="text" id="variants[0][price]"
+                                                            class="form-control" name="variants[0][price]"
+                                                            placeholder="Price">
+                                                    </div>
+                                                </div>
+                                                <div class="col-md-3">
+                                                    <div class="mb-3">
+                                                        <label for="variants[0][stock_quantity]" class="form-label">Stock
+                                                            Quantity</label>
+                                                        <input type="text" id="variants[0][stock_quantity]"
+                                                            class="form-control" name="variants[0][stock_quantity]"
+                                                            placeholder="Stock Quantity">
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <button type="button" class="btn btn-primary" onclick="addVariant()">Add
+                                        Variant</button>
                                 </div>
                                 <div class="mb-3">
                                     <div class="form-check">
@@ -183,5 +227,48 @@
                 reader.readAsDataURL(file);
             }
         }
+    </script>
+    <script>
+        let variantIndex = 1;
+
+        function addVariant() {
+            const variantDiv = document.createElement('div');
+            variantDiv.className = 'variant';
+            variantDiv.innerHTML = `
+        <div class="row">
+            <div class="col-md-3">
+                <div class="mb-3">
+                    <label for="variants[\${variantIndex}][color]" class="form-label">Color</label>
+                    <input type="text" id="variants[\${variantIndex}][color]" class="form-control"
+                        name="variants[\${variantIndex}][color]" placeholder="Color">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="mb-3">
+                    <label for="variants[\${variantIndex}][size]" class="form-label">Size</label>
+                    <input type="text" id="variants[\${variantIndex}][size]" class="form-control"
+                        name="variants[\${variantIndex}][size]" placeholder="Size">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="mb-3">
+                    <label for="variants[\${variantIndex}][price]" class="form-label">Price</label>
+                    <input type="text" id="variants[\${variantIndex}][price]" class="form-control"
+                        name="variants[\${variantIndex}][price]" placeholder="Price">
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="mb-3">
+                    <label for="variants[\${variantIndex}][stock_quantity]" class="form-label">Stock Quantity</label>
+                    <input type="text" id="variants[\${variantIndex}][stock_quantity]" class="form-control"
+                        name="variants[\${variantIndex}][stock_quantity]" placeholder="Stock Quantity">
+                </div>
+            </div>
+        </div>
+    `;
+            document.getElementById('variants').appendChild(variantDiv);
+            variantIndex++;
+        }
+    </script>
     </script>
 @endsection
