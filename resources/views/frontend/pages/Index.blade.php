@@ -16,68 +16,31 @@
                                             }
                                         }
                                     }'>
-                                    <div class="intro-slide">
-                                        <figure class="slide-image">
-                                            <picture>
-                                                <source media="(max-width: 480px)"
-                                                    srcset="assets/images/slider/slide-1-480w.jpg">
-                                                <img src="assets/images/slider/slide-1.jpg" alt="Image Desc">
-                                            </picture>
-                                        </figure><!-- End .slide-image -->
+                                    @foreach ($sliders as $slider)
+                                        <div class="intro-slide">
+                                            <figure class="slide-image">
+                                                <picture>
+                                                    {{-- <source media="(max-width: 480px)"
+                                                    srcset="assets/images/slider/slide-1-480w.jpg"> --}}
+                                                    <img src="{{ asset($slider->image) }}" alt="Image Desc">
+                                                </picture>
+                                            </figure><!-- End .slide-image -->
 
-                                        <div class="intro-content">
-                                            <h3 class="intro-subtitle">Topsale Collection</h3>
-                                            <!-- End .h3 intro-subtitle -->
-                                            <h1 class="intro-title">Living Room<br>Furniture</h1><!-- End .intro-title -->
+                                            <div class="intro-content">
+                                                <h3 class="intro-subtitle">{{ $slider->slider_short_title }}</h3>
+                                                <!-- End .h3 intro-subtitle -->
+                                                <h1 class="intro-title">{{ $slider->slider_title }}</h1>
+                                                <!-- End .intro-title -->
 
-                                            <a href="category.html" class="btn btn-outline-white">
-                                                <span>SHOP NOW</span>
-                                                <i class="icon-long-arrow-right"></i>
-                                            </a>
-                                        </div><!-- End .intro-content -->
-                                    </div><!-- End .intro-slide -->
+                                                <a href="category.html" class="btn btn-outline-white">
+                                                    <span>SHOP NOW</span>
+                                                    <i class="icon-long-arrow-right"></i>
+                                                </a>
+                                            </div><!-- End .intro-content -->
+                                        </div><!-- End .intro-slide -->
+                                    @endforeach
 
-                                    <div class="intro-slide">
-                                        <figure class="slide-image">
-                                            <picture>
-                                                <source media="(max-width: 480px)"
-                                                    srcset="assets/images/slider/slide-2-480w.jpg">
-                                                <img src="assets/images/slider/slide-2.jpg" alt="Image Desc">
-                                            </picture>
-                                        </figure><!-- End .slide-image -->
 
-                                        <div class="intro-content">
-                                            <h3 class="intro-subtitle">News and Inspiration</h3>
-                                            <!-- End .h3 intro-subtitle -->
-                                            <h1 class="intro-title">New Arrivals</h1><!-- End .intro-title -->
-
-                                            <a href="category.html" class="btn btn-outline-white">
-                                                <span>SHOP NOW</span>
-                                                <i class="icon-long-arrow-right"></i>
-                                            </a>
-                                        </div><!-- End .intro-content -->
-                                    </div><!-- End .intro-slide -->
-
-                                    <div class="intro-slide">
-                                        <figure class="slide-image">
-                                            <picture>
-                                                <source media="(max-width: 480px)"
-                                                    srcset="assets/images/slider/slide-3-480w.jpg">
-                                                <img src="assets/images/slider/slide-3.jpg" alt="Image Desc">
-                                            </picture>
-                                        </figure><!-- End .slide-image -->
-
-                                        <div class="intro-content">
-                                            <h3 class="intro-subtitle">Outdoor Furniture</h3><!-- End .h3 intro-subtitle -->
-                                            <h1 class="intro-title">Outdoor Dining <br>Furniture</h1>
-                                            <!-- End .intro-title -->
-
-                                            <a href="category.html" class="btn btn-outline-white">
-                                                <span>SHOP NOW</span>
-                                                <i class="icon-long-arrow-right"></i>
-                                            </a>
-                                        </div><!-- End .intro-content -->
-                                    </div><!-- End .intro-slide -->
                                 </div><!-- End .intro-slider owl-carousel owl-simple -->
 
                                 <span class="slider-loader"></span><!-- End .slider-loader -->
@@ -89,7 +52,8 @@
                                     <div class="col-md-6 col-lg-12">
                                         <div class="banner banner-display">
                                             <a href="#">
-                                                <img src="assets/images/banners/home/intro/banner-1.jpg" alt="Banner">
+                                                <img src="{{ asset('frontend/assets/images/banners/home/intro/banner-1.jpg') }}"
+                                                    alt="Banner">
                                             </a>
 
                                             <div class="banner-content">
@@ -106,7 +70,8 @@
                                     <div class="col-md-6 col-lg-12">
                                         <div class="banner banner-display mb-0">
                                             <a href="#">
-                                                <img src="assets/images/banners/home/intro/banner-2.jpg" alt="Banner">
+                                                <img src="{{ asset('frontend/assets/images/banners/home/intro/banner-2.jpg') }}"
+                                                    alt="Banner">
                                             </a>
 
                                             <div class="banner-content">
@@ -151,27 +116,27 @@
                             }
                         }'>
                         <a href="#" class="brand">
-                            <img src="assets/images/brands/1.png" alt="Brand Name">
+                            <img src="{{ asset('frontend//assets/images/brands/1.png') }}" alt="Brand Name">
                         </a>
 
                         <a href="#" class="brand">
-                            <img src="assets/images/brands/2.png" alt="Brand Name">
+                            <img src="{{ asset('frontend/assets/images/brands/2.png') }}" alt="Brand Name">
                         </a>
 
                         <a href="#" class="brand">
-                            <img src="assets/images/brands/3.png" alt="Brand Name">
+                            <img src="{{ asset('frontend/assets/images/brands/3.png') }}" alt="Brand Name">
                         </a>
 
                         <a href="#" class="brand">
-                            <img src="assets/images/brands/4.png" alt="Brand Name">
+                            <img src="{{ asset('frontend/assets/images/brands/4.png') }}" alt="Brand Name">
                         </a>
 
                         <a href="#" class="brand">
-                            <img src="assets/images/brands/5.png" alt="Brand Name">
+                            <img src="{{ asset('frontend/assets/images/brands/5.png') }}" alt="Brand Name">
                         </a>
 
                         <a href="#" class="brand">
-                            <img src="assets/images/brands/6.png" alt="Brand Name">
+                            <img src="{{ asset('frontend/assets/images/brands/6.png') }}" alt="Brand Name">
                         </a>
                     </div><!-- End .owl-carousel -->
                 </div><!-- End .container -->
@@ -189,8 +154,8 @@
                                 role="tab" aria-controls="trendy-all-tab" aria-selected="true">All</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" id="trendy-fur-link" data-toggle="tab" href="#trendy-fur-tab"
-                                role="tab" aria-controls="trendy-fur-tab" aria-selected="false">Furniture</a>
+                            <a class="nav-link" id="trendy-fur-link" data-toggle="tab" href="#trendy-fur-tab" role="tab"
+                                aria-controls="trendy-fur-tab" aria-selected="false">Furniture</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" id="trendy-decor-link" data-toggle="tab" href="#trendy-decor-tab"

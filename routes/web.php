@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\BrandController;
+use App\Http\Controllers\Frontend\HomeController;
 
 /*
 |--------------------------------------------------------------------------
@@ -25,12 +26,14 @@ Route::get('/', function () {
     return view('frontend.pages.Index');
 });
 
+// Frontend Route 
+Route::get('/', [HomeController::class, 'getSlider']);
+
+
+
 Route::get('admin/login', [AuthController::class, 'login_admin'])->name('admin.login');
 Route::post('admin/login', [AuthController::class, 'Auth_login_admin']);
 Route::get('admin/logout', [AuthController::class, 'logout_admin'])->name('admin.logout');
-
-
-
 
 Route::
         namespace('App\Http\Controllers')->group(
