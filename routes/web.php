@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Auth\AuthController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\SliderController;
 use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\ProductController;
@@ -21,7 +22,7 @@ use App\Http\Controllers\Admin\BrandController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('frontend.pages.Index');
 });
 
 Route::get('admin/login', [AuthController::class, 'login_admin'])->name('admin.login');
@@ -37,6 +38,7 @@ Route::
             Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['auth', 'admin']], function () {
                 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
                 Route::resource('/admin_list', 'AdminController');
+                Route::resource('/slider', 'SliderController');
                 Route::resource('/category', 'CategoryController');
                 Route::resource('/sub_category', 'SubCategoryController');
                 Route::resource('/brand', 'BrandController');
