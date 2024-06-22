@@ -58,12 +58,18 @@ class ProductController extends Controller
             'description' => 'nullable',
             'additional_information' => 'nullable',
             'shipping_returns' => 'nullable',
-            'variant' => 'array'
+            'variants' => 'array',
+            'variants.*.color' => 'nullable',
+            'variants.*.size' => 'nullable',
+            'variants.*.price' => 'required',
+            'variants.*.stock_quantity' => 'required',
         ]);
+
         Log::info('Validated data: ', $validatedData);
+
         $product = new Product();
         $product->product_title = $validatedData['product_title'];
-        $product->slug = Str::lower(str_replace('', '-', '', $validatedData['product_title']));
+        $product->slug = Str::slug($validatedData['product_title']);
         $product->meta_title = $validatedData['meta_title'];
         $product->meta_keywords = $validatedData['meta_keywords'];
         $product->meta_description = $validatedData['meta_description'];
@@ -87,25 +93,24 @@ class ProductController extends Controller
             }
         }
 
-        // Save the image paths in the database
         $product->image = json_encode($images);
         $product->status = $request->has('status') ? true : false;
         $product->save();
 
-        if (!empty($validatedData['variant'])) {
-            foreach ($validatedData['variant'] as $variant) {
-                Log::info('Processing variant: ', $variant);
+        if (!empty($validatedData['variants'])) {
+            foreach ($validatedData['variants'] as $variant) {
                 $product->variants()->create([
                     'color' => $variant['color'] ?? null,
                     'size' => $variant['size'] ?? null,
                     'price' => $variant['price'],
-                    'stock_quantity' => $variant['stock_quantity']
+                    'stock_quantity' => $variant['stock_quantity'],
                 ]);
             }
         }
 
         return redirect()->route('admin.product.index')->with('success', 'Product created successfully.');
 
+        return redirect()->route('admin.product.index')->with('success', 'Product created successfully.');
     }
 
     /**
@@ -131,7 +136,7 @@ class ProductController extends Controller
             return response()->json(['price' => 'N/A'], 200);
         }
     }
-    
+
     public function show(Product $product)
     {
         //

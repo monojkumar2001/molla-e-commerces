@@ -28,6 +28,13 @@
                   </a>
               </li>
               <li class="nav-item">
+                  <a href="{{ route('admin.slider.index') }}"
+                      class="nav-link @if (Request::segment(2) == 'slider') active @endif">
+                      <i class="link-icon" data-feather="box"></i>
+                      <span class="link-title">Slider</span>
+                  </a>
+              </li>
+              <li class="nav-item">
                   <a href="{{ route('admin.category.index') }}"
                       class="nav-link @if (Request::segment(2) == 'category') active @endif">
                       <i class="link-icon" data-feather="box"></i>

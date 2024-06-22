@@ -23,7 +23,7 @@
                                 <div class="col-md-12">
                                     <div class="mb-3">
                                         <label for="product_title" class="form-label">Product Title <span
-                                                class=' text-danger'>*</span></label>
+                                                class='text-danger'>*</span></label>
                                         <input type="text" class="form-control" id="product_title" name="product_title"
                                             autocomplete="off" placeholder="Enter product title">
                                     </div>
@@ -46,13 +46,13 @@
                                 <div class="col-md-12">
                                     <div class="mb-3">
                                         <label for="meta_description" class="form-label">Meta Description</label>
-                                        <textarea class="form-control" name="meta_description" type="text"id="tinymceExample" cols="30" rows="7"></textarea>
+                                        <textarea class="form-control" name="meta_description" id="tinymceExample" cols="30" rows="7"></textarea>
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <label for="category_id" class="form-label">Category <span
-                                                class=' text-danger'>*</span></label>
+                                                class='text-danger'>*</span></label>
                                         <select id="category_id" name="category_id"
                                             class="js-example-basic-single form-control form-select" required>
                                             @foreach ($categories as $category)
@@ -64,7 +64,7 @@
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <label for="sub_category_id" class="form-label">Sub Category <span
-                                                class=' text-danger'>*</span></label>
+                                                class='text-danger'>*</span></label>
                                         <select id="sub_category_id" name="sub_category_id"
                                             class="js-example-basic-single form-control form-select" required>
                                             @foreach ($sub_categories as $sub_category)
@@ -76,7 +76,7 @@
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <label for="brand_id" class="form-label">Brand <span
-                                                class=' text-danger'>*</span></label>
+                                                class='text-danger'>*</span></label>
                                         <select id="brand_id" name="brand_id"
                                             class="js-example-basic-single form-control form-select" required>
                                             @foreach ($brands as $brand)
@@ -89,7 +89,7 @@
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <label for="stock_quantity" class="form-label">Stock Quantity <span
-                                                class=' text-danger'>*</span></label>
+                                                class='text-danger'>*</span></label>
                                         <input type="number" class="form-control" id="stock_quantity" name="stock_quantity"
                                             autocomplete="off" placeholder="Enter stock quantity">
                                     </div>
@@ -97,7 +97,7 @@
                                 <div class="col-md-12">
                                     <div class="mb-3">
                                         <label for="image" class="form-label">Product Image <span
-                                                class=' text-danger'>*</span></label>
+                                                class='text-danger'>*</span></label>
                                         <input type="file" id='image' name="image[]"
                                             onchange="previewImages(event)" multiple class="form-control" required>
                                     </div>
@@ -108,7 +108,7 @@
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <label for="price" class="form-label">Price <span
-                                                class=' text-danger'>*</span></label>
+                                                class='text-danger'>*</span></label>
                                         <input type="number" class="form-control" id="price" name="price"
                                             autocomplete="off" placeholder="Enter Price">
                                     </div>
@@ -122,26 +122,21 @@
                                     </div>
                                 </div>
 
-
-
                                 <div class="mb-3">
                                     <label for="short_description" class="form-label">Short Description</label>
-                                    <textarea class="form-control" name="short_description" type="text"id="tinymceExample" cols="30"
-                                        rows="6"></textarea>
+                                    <textarea class="form-control" name="short_description" id="tinymceExample" cols="30" rows="6"></textarea>
                                 </div>
                                 <div class="mb-3">
                                     <label for="description" class="form-label">Description</label>
-                                    <textarea class="form-control" name="description" type="text"id="tinymceExample" cols="30" rows="10"></textarea>
+                                    <textarea class="form-control" name="description" id="tinymceExample" cols="30" rows="10"></textarea>
                                 </div>
                                 <div class="mb-3">
                                     <label for="additional_information" class="form-label">Additional Information</label>
-                                    <textarea class="form-control" name="additional_information" type="text"id="tinymceExample" cols="30"
-                                        rows="10"></textarea>
+                                    <textarea class="form-control" name="additional_information" id="tinymceExample" cols="30" rows="10"></textarea>
                                 </div>
                                 <div class="mb-3">
                                     <label for="shipping_returns" class="form-label">Shipping Returns</label>
-                                    <textarea class="form-control" name="shipping_returns" type="text"id="tinymceExample" cols="30"
-                                        rows="10"></textarea>
+                                    <textarea class="form-control" name="shipping_returns" id="tinymceExample" cols="30" rows="10"></textarea>
                                 </div>
 
                                 <div class="mb-3">
@@ -189,26 +184,22 @@
                                 </div>
                                 <div class="mb-3">
                                     <div class="form-check">
-                                        <label class="form-check-label" for="termsCheck">
-                                            Active
-                                        </label>
+                                        <label class="form-check-label" for="termsCheck">Active</label>
                                         <input type="checkbox" class="form-check-input" checked name="status"
                                             id="termsCheck">
                                     </div>
                                 </div>
                             </div>
                             <button type="submit" class="btn btn-primary me-2">Submit</button>
-
                         </form>
 
                     </div>
                 </div>
             </div>
-
         </div>
-
     </div>
 @endsection
+
 @section('js')
     <script>
         function previewImages(event) {
@@ -228,47 +219,43 @@
             }
         }
     </script>
-    <script>
-        let variantIndex = 1;
+  <script>
+let variantIndex = 1;
 
-        function addVariant() {
-            const variantDiv = document.createElement('div');
-            variantDiv.className = 'variant';
-            variantDiv.innerHTML = `
+function addVariant() {
+    const variantDiv = document.createElement('div');
+    variantDiv.className = 'variant';
+    variantDiv.innerHTML = `
         <div class="row">
             <div class="col-md-3">
                 <div class="mb-3">
-                    <label for="variants[\${variantIndex}][color]" class="form-label">Color</label>
-                    <input type="text" id="variants[\${variantIndex}][color]" class="form-control"
-                        name="variants[\${variantIndex}][color]" placeholder="Color">
+                    <label for="variants[${variantIndex}][color]" class="form-label">Color</label>
+                    <input type="text" id="variants[${variantIndex}][color]" class="form-control" name="variants[${variantIndex}][color]" placeholder="Color">
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="mb-3">
-                    <label for="variants[\${variantIndex}][size]" class="form-label">Size</label>
-                    <input type="text" id="variants[\${variantIndex}][size]" class="form-control"
-                        name="variants[\${variantIndex}][size]" placeholder="Size">
+                    <label for="variants[${variantIndex}][size]" class="form-label">Size</label>
+                    <input type="text" id="variants[${variantIndex}][size]" class="form-control" name="variants[${variantIndex}][size]" placeholder="Size">
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="mb-3">
-                    <label for="variants[\${variantIndex}][price]" class="form-label">Price</label>
-                    <input type="text" id="variants[\${variantIndex}][price]" class="form-control"
-                        name="variants[\${variantIndex}][price]" placeholder="Price">
+                    <label for="variants[${variantIndex}][price]" class="form-label">Price</label>
+                    <input type="text" id="variants[${variantIndex}][price]" class="form-control" name="variants[${variantIndex}][price]" placeholder="Price">
                 </div>
             </div>
             <div class="col-md-3">
                 <div class="mb-3">
-                    <label for="variants[\${variantIndex}][stock_quantity]" class="form-label">Stock Quantity</label>
-                    <input type="text" id="variants[\${variantIndex}][stock_quantity]" class="form-control"
-                        name="variants[\${variantIndex}][stock_quantity]" placeholder="Stock Quantity">
+                    <label for="variants[${variantIndex}][stock_quantity]" class="form-label">Stock Quantity</label>
+                    <input type="text" id="variants[${variantIndex}][stock_quantity]" class="form-control" name="variants[${variantIndex}][stock_quantity]" placeholder="Stock Quantity">
                 </div>
             </div>
         </div>
     `;
-            document.getElementById('variants').appendChild(variantDiv);
-            variantIndex++;
-        }
-    </script>
-    </script>
+    document.getElementById('variants').appendChild(variantDiv);
+    variantIndex++;
+}
+
+</script>
 @endsection

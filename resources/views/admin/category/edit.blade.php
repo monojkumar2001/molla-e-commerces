@@ -38,7 +38,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-3">
-                                        <label for="meta_keywords" class="form-label">meta_keywords</label>
+                                        <label for="meta_keywords" class="form-label">Meta Keywords</label>
                                         <input type="text" class="form-control" value="{{ $category->meta_keywords }}"
                                             id="meta_keywords" name="meta_keywords" autocomplete="off"
                                             placeholder="Enter meta keywords">
