@@ -103,7 +103,7 @@ class ProductController extends Controller
                 ]);
             }
         }
-        
+
         return redirect()->route('admin.product.index')->with('success', 'Product created successfully.');
 
     }
@@ -111,6 +111,27 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      */
+
+     public function getVariantPrice(Request $request)
+    {
+        $validatedData = $request->validate([
+            'product_id' => 'required',
+            'color' => 'nullable',
+            'size' => 'nullable'
+        ]);
+
+        $variant = ProductVariant::where('product_id', $validatedData['product_id'])
+                                 ->where('color', $validatedData['color'])
+                                 ->where('size', $validatedData['size'])
+                                 ->first();
+
+        if ($variant) {
+            return response()->json(['price' => $variant->price], 200);
+        } else {
+            return response()->json(['price' => 'N/A'], 200);
+        }
+    }
+    
     public function show(Product $product)
     {
         //

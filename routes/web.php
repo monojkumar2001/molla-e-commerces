@@ -8,7 +8,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\BrandController;
-
+use App\Http\Controllers\ProductVariantsController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -28,7 +28,7 @@ Route::get('admin/login', [AuthController::class, 'login_admin'])->name('admin.l
 Route::post('admin/login', [AuthController::class, 'Auth_login_admin']);
 Route::get('admin/logout', [AuthController::class, 'logout_admin'])->name('admin.logout');
 
-
+Route::post('/product-variant-price', [ProductVariantsController::class, 'getVariantPrice']);
 
 
 Route::
