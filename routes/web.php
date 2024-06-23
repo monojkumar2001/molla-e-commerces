@@ -9,6 +9,7 @@ use App\Http\Controllers\Admin\CategoryController;
 use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\BrandController;
+use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\ProductVariantsController;
 /*
 |--------------------------------------------------------------------------
@@ -26,7 +27,7 @@ Route::get('/', function () {
 });
 
 // Frontend Route
-Route::get('/', [HomeController::class, 'getSlider']);
+Route::get('/', [HomeController::class, 'index']);
 
 
 
@@ -37,8 +38,7 @@ Route::get('admin/logout', [AuthController::class, 'logout_admin'])->name('admin
 Route::post('/product-variant-price', [ProductVariantsController::class, 'getVariantPrice']);
 
 
-Route::
-        namespace('App\Http\Controllers')->group(
+Route::namespace('App\Http\Controllers')->group(
         function () {
             Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['auth', 'admin']], function () {
                 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');

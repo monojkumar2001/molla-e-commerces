@@ -8,7 +8,7 @@ use App\Models\Slider;
 
 class HomeController extends Controller
 {
-    public function getSlider()
+    public function index()
     {
         $sliders = Slider::all();
         return view('frontend.pages.Index', compact('sliders'));
