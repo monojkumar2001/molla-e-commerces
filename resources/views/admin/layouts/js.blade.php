@@ -22,6 +22,7 @@
 <script src="{{ asset('admin/assets/vendors/select2/select2.min.js') }}"></script>
 
 <script src="{{ asset('admin/assets/js/select2.js') }}"></script>
+
 <!-- End custom js for this page -->
 {{-- <script src="https://cdn.jsdelivr.net/npm/sweetalert2@10"></script> --}}
 <script>

@@ -43,11 +43,13 @@ Route::get('admin/logout', [AuthController::class, 'logout_admin'])->name('admin
 // Route::post('/product-variant-price', [ProductVariantsController::class, 'getVariantPrice']);
 
 
-Route::
-        namespace('App\Http\Controllers')->group(
+Route::namespace('App\Http\Controllers')->group(
         function () {
             Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['auth', 'admin']], function () {
                 Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+                Route::get('/product/subcategories/{category_id}', [ProductController::class, 'getSubCategories']);
+
+
                 Route::resource('/admin_list', 'AdminController');
                 Route::resource('/slider', 'SliderController');
                 Route::resource('/category', 'CategoryController');

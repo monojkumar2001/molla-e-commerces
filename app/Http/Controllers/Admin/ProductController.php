@@ -25,6 +25,13 @@ class ProductController extends Controller
         return view('admin.product.index', compact('products'), $data);
     }
 
+
+public function getSubCategories($categoryId)
+{
+    $subCategories = SubCategory::where('category_id', $categoryId)->orderBy('created_at', 'desc')->get();
+    return response()->json($subCategories);
+}
+
     /**
      * Show the form for creating a new resource.
      */

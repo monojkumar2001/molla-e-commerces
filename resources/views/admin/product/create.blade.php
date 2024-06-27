@@ -29,26 +29,7 @@
                                     </div>
                                 </div>
 
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label for="meta_title" class="form-label">Meta Title</label>
-                                        <input type="text" class="form-control" id="meta_title" name="meta_title"
-                                            autocomplete="off" placeholder="Enter Meta Title">
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="mb-3">
-                                        <label for="meta_keywords" class="form-label">Meta Keywords</label>
-                                        <input type="text" class="form-control" id="meta_keywords" name="meta_keywords"
-                                            autocomplete="off" placeholder="Enter meta keywords">
-                                    </div>
-                                </div>
-                                <div class="col-md-12">
-                                    <div class="mb-3">
-                                        <label for="meta_description" class="form-label">Meta Description</label>
-                                        <textarea class="form-control" name="meta_description" id="tinymceExample" cols="30" rows="7"></textarea>
-                                    </div>
-                                </div>
+
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <label for="category_id" class="form-label">Category <span
@@ -65,11 +46,14 @@
                                     <div class="mb-3">
                                         <label for="sub_category_id" class="form-label">Sub Category <span
                                                 class='text-danger'>*</span></label>
-                                        <select id="sub_category_id" name="sub_category_id"
+                                        {{-- <select id="sub_category_id" name="sub_category_id"
                                             class="js-example-basic-single form-control form-select" required>
                                             @foreach ($sub_categories as $sub_category)
                                                 <option value="{{ $sub_category->id }}">{{ $sub_category->name }}</option>
                                             @endforeach
+                                        </select> --}}
+                                        <select id="sub_category_id" name="sub_category_id" class="form-control form-select" required>
+                                            <option value="">Select Sub Category</option>
                                         </select>
                                     </div>
                                 </div>
@@ -83,6 +67,61 @@
                                                 <option value="{{ $brand->id }}">{{ $brand->name }}</option>
                                             @endforeach
                                         </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="stock_quantity" class="form-label">Color <span
+                                                class='text-danger'>*</span></label>
+                                        <div class="form-group">
+                                            <label for="">
+                                                <input type="checkbox" name="color_id[]" id="">
+                                                Red
+                                            </label>
+                                            <label for="">
+                                                <input type="checkbox" name="color_id[]" id="">
+                                                White
+                                            </label>
+                                            <label for="">
+                                                <input type="checkbox" name="color_id[]" id="">
+                                                Red
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="mb-3">
+
+                                        <div class="form-group">
+                                            <label for="stock_quantity" class="form-label">Size <span
+                                                    class='text-danger'>*</span></label>
+                                            <div>
+                                                <table class="table table-bordered">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>Name</th>
+                                                            <th>Price</th>
+                                                            <th>Action</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td>
+                                                                <input type="text" class=" form-control">
+                                                            </td>
+                                                            <td>
+                                                                <input type="text" class=" form-control">
+                                                            </td>
+                                                            <td>
+                                                                <button class="btn btn-success" type="button">Add</button>
+                                                                <button class="btn btn-danger"
+                                                                    type="button">Delete</button>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
 
@@ -119,6 +158,26 @@
                                                 class='text-danger'>*</span></label>
                                         <input type="number" class="form-control" id="old_price" name="old_price"
                                             autocomplete="off" placeholder="Enter old price">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="meta_title" class="form-label">Meta Title</label>
+                                        <input type="text" class="form-control" id="meta_title" name="meta_title"
+                                            autocomplete="off" placeholder="Enter Meta Title">
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="mb-3">
+                                        <label for="meta_keywords" class="form-label">Meta Keywords</label>
+                                        <input type="text" class="form-control" id="meta_keywords"
+                                            name="meta_keywords" autocomplete="off" placeholder="Enter meta keywords">
+                                    </div>
+                                </div>
+                                <div class="col-md-12">
+                                    <div class="mb-3">
+                                        <label for="meta_description" class="form-label">Meta Description</label>
+                                        <textarea class="form-control" name="meta_description" id="tinymceExample" cols="30" rows="7"></textarea>
                                     </div>
                                 </div>
 
@@ -219,13 +278,13 @@
             }
         }
     </script>
-  <script>
-let variantIndex = 1;
+    <script>
+        let variantIndex = 1;
 
-function addVariant() {
-    const variantDiv = document.createElement('div');
-    variantDiv.className = 'variant';
-    variantDiv.innerHTML = `
+        function addVariant() {
+            const variantDiv = document.createElement('div');
+            variantDiv.className = 'variant';
+            variantDiv.innerHTML = `
         <div class="row">
             <div class="col-md-3">
                 <div class="mb-3">
@@ -253,9 +312,42 @@ function addVariant() {
             </div>
         </div>
     `;
-    document.getElementById('variants').appendChild(variantDiv);
-    variantIndex++;
-}
+            document.getElementById('variants').appendChild(variantDiv);
+            variantIndex++;
+        }
+    </script>
+@endsection
 
-</script>
+@section('js')
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('#category_id').change(function() {
+                let categoryId = $(this).val();
+                if (categoryId) {
+                    $.ajax({
+                        url: '/admin/product/subcategories/' + categoryId,
+                        type: 'GET',
+                        dataType: 'json',
+                        success: function(data) {
+                            console.log(data); // Debugging line
+                            $('#sub_category_id').empty();
+                            $('#sub_category_id').append('<option value="">Select Sub Category</option>');
+                            $.each(data, function(key, value) {
+                                $('#sub_category_id').append('<option value="' + value.id + '">' + value.name + '</option>');
+                            });
+                        },
+                        error: function(xhr, status, error) {
+                            console.error("AJAX Error:", error); // Debugging line
+                            console.error("Status:", status);
+                            console.error("Response:", xhr.responseText);
+                        }
+                    });
+                } else {
+                    $('#sub_category_id').empty();
+                    $('#sub_category_id').append('<option value="">Select Sub Category</option>');
+                }
+            });
+        });
+    </script>
 @endsection
