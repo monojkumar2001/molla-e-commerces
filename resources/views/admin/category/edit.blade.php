@@ -46,7 +46,7 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-3">
-                                        <label for="image" class="form-label">Image</label>
+                                        <label for="image" class="form-label">Image icon</label>
                                         <input id="image" class="form-control" name="image" type="file">
                                     </div>
                                 </div>

@@ -18,7 +18,8 @@ return new class extends Migration {
             $table->string('meta_keywords')->nullable();
             $table->text('meta_description')->nullable();
             $table->foreignId('category_id')->constrained()->onDelete('cascade');
-            $table->foreignId('sub_category_id')->constrained()->onDelete('cascade');
+            $table->foreignId('sub_category_id')->nullable()->constrained()->onDelete('cascade');
+            $table->foreignId('sub_sub_category_id')->nullable()->constrained()->onDelete('cascade');
             $table->foreignId('brand_id')->constrained()->onDelete('cascade');
             $table->json('image');
             $table->decimal('price', 10, 2);
