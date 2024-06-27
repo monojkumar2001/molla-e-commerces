@@ -17,7 +17,7 @@
                     <div class="card-body">
                         <h6 class="card-title">Admin List Table</h6>
                         <div class="table-responsive">
-                            
+
                             <table id="dataTableExample" class="table">
                                 <thead>
                                     <tr>
@@ -25,8 +25,6 @@
 
                                         <th>Category Name</th>
                                         <th>Name</th>
-                                        <th>Description</th>
-                                        {{-- <th>Image</th> --}}
                                         <th>Created At</th>
                                         <th>Status</th>
                                         <th>Action</th>
@@ -46,13 +44,6 @@
                                                 @endif
                                             </td>
                                             <td>{{ $sub_category->name }}</td>
-
-                                            <td>
-                                                {!! Str::limit(strip_tags($sub_category->description), 30, '...') !!}
-                                            </td>
-                                            {{-- <td>
-                                                <img src="{{ asset($sub_category->image) }}" alt="">
-                                            </td> --}}
                                             <td>{{ $sub_category->created_at->format('d-m-Y') }}</td>
                                             <td>
                                                 @if ($sub_category->status === 1)

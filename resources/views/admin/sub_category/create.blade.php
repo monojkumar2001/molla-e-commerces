@@ -61,12 +61,6 @@
                                         <textarea class="form-control" name="meta_description" type="text"id="tinymceExample" cols="30" rows="10"></textarea>
                                     </div>
                                 </div>
-
-
-                                <div class="mb-3">
-                                    <label for="description" class="form-label">Description</label>
-                                    <textarea class="form-control" name="description" type="text"id="tinymceExample" cols="30" rows="10"></textarea>
-                                </div>
                                 <div class="mb-3">
                                     <div class="form-check">
                                         <label class="form-check-label" for="termsCheck">

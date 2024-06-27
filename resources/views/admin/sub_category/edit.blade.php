@@ -62,12 +62,6 @@
                                         <textarea class="form-control" name="meta_description" id="tinymceExample" cols="30" rows="10">{{ $sub_category->meta_description }}</textarea>
                                     </div>
                                 </div>
-                                <div class="col-md-12">
-                                    <div class="mb-3">
-                                        <label for="description" class="form-label">Description</label>
-                                        <textarea class="form-control" name="description" id="tinymceExample" cols="30" rows="10">{{ $sub_category->description }}</textarea>
-                                    </div>
-                                </div>
                                 <div class="mb-3">
                                     <div class="form-check">
                                         <label class="form-check-label" for="statusCheck">
