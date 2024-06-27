@@ -10,6 +10,7 @@ use App\Http\Controllers\Admin\SubCategoryController;
 use App\Http\Controllers\Admin\SubSubCategoryController;
 use App\Http\Controllers\Admin\ProductController;
 use App\Http\Controllers\Admin\BrandController;
+use App\Http\Controllers\Admin\ColorController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\ShopController;
 use App\Http\Controllers\ProductVariantsController;
@@ -53,6 +54,7 @@ Route::
                 Route::resource('/sub_category', 'SubCategoryController');
                 Route::resource('/sub_sub_category', 'SubSubCategoryController');
                 Route::resource('/brand', 'BrandController');
+                Route::resource('/color', 'ColorController');
                 Route::resource('/product', 'ProductController');
             });
         }

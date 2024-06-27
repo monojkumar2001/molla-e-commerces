@@ -63,6 +63,13 @@
                   </a>
               </li>
               <li class="nav-item">
+                  <a href="{{ route('admin.color.index') }}"
+                      class="nav-link @if (Request::segment(2) == 'color') active @endif">
+                      <i class="link-icon" data-feather="box"></i>
+                      <span class="link-title">Color</span>
+                  </a>
+              </li>
+              <li class="nav-item">
                   <a href="{{ route('admin.product.index') }}"
                       class="nav-link @if (Request::segment(2) == 'product') active @endif">
                       <i class="link-icon" data-feather="box"></i>
