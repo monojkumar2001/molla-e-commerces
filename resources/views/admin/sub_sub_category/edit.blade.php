@@ -33,7 +33,6 @@
                                                 class='text-danger'>*</span></label>
                                         <select id="category_id" name="category_id" class="form-control form-select"
                                             required>
-                                            {{-- <option value="">Select Category</option> --}}
                                             @foreach ($categories as $category)
                                                 <option value="{{ $category->id }}"
                                                     {{ $category->id == $sub_sub_category->category_id ? 'selected' : '' }}>

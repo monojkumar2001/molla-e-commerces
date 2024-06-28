@@ -12,19 +12,19 @@ return new class extends Migration {
     {
         Schema::create('products', function (Blueprint $table) {
             $table->id();
-            $table->string('product_title');
+            $table->string('title');
             $table->string('slug');
-            $table->string('meta_title')->nullable();
-            $table->string('meta_keywords')->nullable();
-            $table->text('meta_description')->nullable();
             $table->foreignId('category_id')->constrained()->onDelete('cascade');
             $table->foreignId('sub_category_id')->nullable()->constrained()->onDelete('cascade');
             $table->foreignId('sub_sub_category_id')->nullable()->constrained()->onDelete('cascade');
             $table->foreignId('brand_id')->constrained()->onDelete('cascade');
-            $table->json('image');
+            $table->decimal('buy_price', 10, 2);
             $table->decimal('price', 10, 2);
-            $table->decimal('old_price', 10, 2);
+            $table->decimal('discount_price', 10, 2);
             $table->integer('stock_quantity');
+            $table->string('meta_title')->nullable();
+            $table->string('meta_keywords')->nullable();
+            $table->text('meta_description')->nullable();
             $table->text('short_description')->nullable();
             $table->longText('description')->nullable();
             $table->text('additional_information')->nullable();
