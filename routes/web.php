@@ -40,24 +40,22 @@ Route::get('admin/login', [AuthController::class, 'login_admin'])->name('admin.l
 Route::post('admin/login', [AuthController::class, 'Auth_login_admin']);
 Route::get('admin/logout', [AuthController::class, 'logout_admin'])->name('admin.logout');
 
-// Route::post('/product-variant-price', [ProductVariantsController::class, 'getVariantPrice']);
-
-
 Route::namespace('App\Http\Controllers')->group(
-        function () {
-            Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['auth', 'admin']], function () {
-                Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-                Route::get('/product/subcategories/{category_id}', [ProductController::class, 'getSubCategories']);
+    function () {
+        Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['auth', 'admin']], function () {
+            Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+            Route::get('/get-sub-categories/{category_id}', [ProductController::class, 'getSubCategories'])->name('getSubCategories');
+            Route::get('/get-sub-categories/{category_id}', [SubSubCategoryController::class, 'getSubCategories'])->name('getSubCategories');
 
 
-                Route::resource('/admin_list', 'AdminController');
-                Route::resource('/slider', 'SliderController');
-                Route::resource('/category', 'CategoryController');
-                Route::resource('/sub_category', 'SubCategoryController');
-                Route::resource('/sub_sub_category', 'SubSubCategoryController');
-                Route::resource('/brand', 'BrandController');
-                Route::resource('/color', 'ColorController');
-                Route::resource('/product', 'ProductController');
-            });
-        }
-    );
+            Route::resource('/admin_list', 'AdminController');
+            Route::resource('/slider', 'SliderController');
+            Route::resource('/category', 'CategoryController');
+            Route::resource('/sub_category', 'SubCategoryController');
+            Route::resource('/sub_sub_category', 'SubSubCategoryController');
+            Route::resource('/brand', 'BrandController');
+            Route::resource('/color', 'ColorController');
+            Route::resource('/product', 'ProductController');
+        });
+    }
+);

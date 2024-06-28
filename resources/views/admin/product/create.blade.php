@@ -35,7 +35,8 @@
                                         <label for="category_id" class="form-label">Category <span
                                                 class='text-danger'>*</span></label>
                                         <select id="category_id" name="category_id"
-                                            class="js-example-basic-single form-control form-select" required>
+                                            class=" form-control form-select-lg" required>
+                                            <option value="">Select Category</option>
                                             @foreach ($categories as $category)
                                                 <option value="{{ $category->id }}">{{ $category->name }}</option>
                                             @endforeach
@@ -46,13 +47,8 @@
                                     <div class="mb-3">
                                         <label for="sub_category_id" class="form-label">Sub Category <span
                                                 class='text-danger'>*</span></label>
-                                        {{-- <select id="sub_category_id" name="sub_category_id"
-                                            class="js-example-basic-single form-control form-select" required>
-                                            @foreach ($sub_categories as $sub_category)
-                                                <option value="{{ $sub_category->id }}">{{ $sub_category->name }}</option>
-                                            @endforeach
-                                        </select> --}}
-                                        <select id="sub_category_id" name="sub_category_id" class="form-control form-select" required>
+                                        <select id="sub_category_id" name="sub_category_id" class="form-control form-select-lg"
+                                            required>
                                             <option value="">Select Sub Category</option>
                                         </select>
                                     </div>
@@ -259,95 +255,30 @@
     </div>
 @endsection
 
-@section('js')
-    <script>
-        function previewImages(event) {
-            let files = event.target.files;
-            document.getElementById('imagePreview').innerHTML = '';
-            for (let i = 0; i < files.length; i++) {
-                let file = files[i];
-                let reader = new FileReader();
-                reader.onload = function(e) {
-                    let img = document.createElement('img');
-                    img.src = e.target.result;
-                    img.width = 100;
-                    img.height = 100;
-                    document.getElementById('imagePreview').appendChild(img);
-                }
-                reader.readAsDataURL(file);
-            }
-        }
-    </script>
-    <script>
-        let variantIndex = 1;
 
-        function addVariant() {
-            const variantDiv = document.createElement('div');
-            variantDiv.className = 'variant';
-            variantDiv.innerHTML = `
-        <div class="row">
-            <div class="col-md-3">
-                <div class="mb-3">
-                    <label for="variants[${variantIndex}][color]" class="form-label">Color</label>
-                    <input type="text" id="variants[${variantIndex}][color]" class="form-control" name="variants[${variantIndex}][color]" placeholder="Color">
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="mb-3">
-                    <label for="variants[${variantIndex}][size]" class="form-label">Size</label>
-                    <input type="text" id="variants[${variantIndex}][size]" class="form-control" name="variants[${variantIndex}][size]" placeholder="Size">
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="mb-3">
-                    <label for="variants[${variantIndex}][price]" class="form-label">Price</label>
-                    <input type="text" id="variants[${variantIndex}][price]" class="form-control" name="variants[${variantIndex}][price]" placeholder="Price">
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="mb-3">
-                    <label for="variants[${variantIndex}][stock_quantity]" class="form-label">Stock Quantity</label>
-                    <input type="text" id="variants[${variantIndex}][stock_quantity]" class="form-control" name="variants[${variantIndex}][stock_quantity]" placeholder="Stock Quantity">
-                </div>
-            </div>
-        </div>
-    `;
-            document.getElementById('variants').appendChild(variantDiv);
-            variantIndex++;
-        }
-    </script>
-@endsection
+
+
+
 
 @section('js')
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>
-        $(document).ready(function() {
-            $('#category_id').change(function() {
-                let categoryId = $(this).val();
-                if (categoryId) {
-                    $.ajax({
-                        url: '/admin/product/subcategories/' + categoryId,
-                        type: 'GET',
-                        dataType: 'json',
-                        success: function(data) {
-                            console.log(data); // Debugging line
-                            $('#sub_category_id').empty();
-                            $('#sub_category_id').append('<option value="">Select Sub Category</option>');
-                            $.each(data, function(key, value) {
-                                $('#sub_category_id').append('<option value="' + value.id + '">' + value.name + '</option>');
-                            });
-                        },
-                        error: function(xhr, status, error) {
-                            console.error("AJAX Error:", error); // Debugging line
-                            console.error("Status:", status);
-                            console.error("Response:", xhr.responseText);
-                        }
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        const categorySelect = document.getElementById('category_id');
+        const subCategorySelect = document.getElementById('sub_category_id');
+
+        categorySelect.addEventListener('change', function () {
+            const categoryId = this.value;
+            fetch(`{{ url('/admin/get-sub-categories') }}/${categoryId}`)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data); // Debugging line
+                    subCategorySelect.innerHTML = '<option value="">Select Sub Category</option>';
+                    data.forEach(subCategory => {
+                        subCategorySelect.innerHTML += `<option value="${subCategory.id}">${subCategory.name}</option>`;
                     });
-                } else {
-                    $('#sub_category_id').empty();
-                    $('#sub_category_id').append('<option value="">Select Sub Category</option>');
-                }
-            });
+                })
+                .catch(error => console.error('Error fetching sub-categories:', error));
         });
-    </script>
+    });
+</script>
 @endsection

@@ -18,6 +18,13 @@ class ProductController extends Controller
     /**
      * Display a listing of the resource.
      */
+
+     public function getSubCategories($category_id)
+     {
+         $subCategories = SubCategory::where('category_id', $category_id)->get();
+         return response()->json($subCategories);
+     }
+     
     public function index()
     {
         $data['header_title'] = 'Product';
@@ -25,12 +32,6 @@ class ProductController extends Controller
         return view('admin.product.index', compact('products'), $data);
     }
 
-
-public function getSubCategories($categoryId)
-{
-    $subCategories = SubCategory::where('category_id', $categoryId)->orderBy('created_at', 'desc')->get();
-    return response()->json($subCategories);
-}
 
     /**
      * Show the form for creating a new resource.

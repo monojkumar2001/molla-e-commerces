@@ -21,16 +21,19 @@
                             <div class="row">
                                 <div class="col-md-6">
                                     <div class="mb-3">
-                                        <label for="name" class="form-label">Name <span class="text-danger">*</span></label>
+                                        <label for="name" class="form-label">Name <span
+                                                class="text-danger">*</span></label>
                                         <input type="text" class="form-control" value="{{ $sub_sub_category->name }}"
                                             id="name" name="name" autocomplete="off" placeholder="Enter Name">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-3">
-                                        <label for="category_id" class="form-label">Category</label>
-                                        <select id="category_id" name="category_id"
-                                            class="js-example-basic-single form-control form-select" required>
+                                        <label for="category_id" class="form-label">Category <span
+                                                class='text-danger'>*</span></label>
+                                        <select id="category_id" name="category_id" class="form-control form-select"
+                                            required>
+                                            {{-- <option value="">Select Category</option> --}}
                                             @foreach ($categories as $category)
                                                 <option value="{{ $category->id }}"
                                                     {{ $category->id == $sub_sub_category->category_id ? 'selected' : '' }}>
@@ -42,9 +45,11 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-3">
-                                        <label for="sub_category_id" class="form-label">Sub Category</label>
+                                        <label for="sub_category_id" class="form-label">Sub Category <span
+                                                class='text-danger'>*</span></label>
                                         <select id="sub_category_id" name="sub_category_id"
-                                            class="js-example-basic-single form-control form-select" required>
+                                            class=" form-control form-select" required>
+                                            <option value="">Select Sub Category</option>
                                             @foreach ($sub_categories as $sub_category)
                                                 <option value="{{ $sub_category->id }}"
                                                     {{ $sub_category->id == $sub_sub_category->sub_category_id ? 'selected' : '' }}>
@@ -57,9 +62,9 @@
                                 <div class="col-md-6">
                                     <div class="mb-3">
                                         <label for="meta_title" class="form-label">Meta Title</label>
-                                        <input type="text" class="form-control" value="{{ $sub_sub_category->meta_title }}"
-                                            id="meta_title" name="meta_title" autocomplete="off"
-                                            placeholder="Enter Meta Title">
+                                        <input type="text" class="form-control"
+                                            value="{{ $sub_sub_category->meta_title }}" id="meta_title" name="meta_title"
+                                            autocomplete="off" placeholder="Enter Meta Title">
                                     </div>
                                 </div>
                                 <div class="col-md-6">
@@ -93,4 +98,31 @@
             </div>
         </div>
     </div>
+@endsection
+@section('js')
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const categorySelect = document.getElementById('category_id');
+            const subCategorySelect = document.getElementById('sub_category_id');
+
+            categorySelect.addEventListener('change', function() {
+                const categoryId = this.value;
+                fetch(`{{ url('/admin/get-sub-categories') }}/${categoryId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data); // Debugging line
+                        subCategorySelect.innerHTML = '<option value="">Select Sub Category</option>';
+                        data.forEach(subCategory => {
+                            subCategorySelect.innerHTML +=
+                                `<option value="${subCategory.id}">${subCategory.name}</option>`;
+                        });
+                    })
+                    .catch(error => console.error('Error fetching sub-categories:', error));
+            });
+
+            if (categorySelect.value) {
+                categorySelect.dispatchEvent(new Event('change'));
+            }
+        });
+    </script>
 @endsection

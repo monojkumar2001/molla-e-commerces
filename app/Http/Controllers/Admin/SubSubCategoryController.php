@@ -21,7 +21,12 @@ class SubSubCategoryController extends Controller
         $sub_sub_categories = SubSubCategory::all();
         return view('admin.sub_sub_category.index', compact('sub_sub_categories'), $data);
     }
-
+    
+    public function getSubCategories($category_id)
+    {
+        $subCategories = SubCategory::where('category_id', $category_id)->get();
+        return response()->json($subCategories);
+    }
     /**
      * Show the form for creating a new resource.
      */

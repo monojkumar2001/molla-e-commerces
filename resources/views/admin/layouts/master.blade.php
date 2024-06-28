@@ -35,6 +35,7 @@
 
     @include('admin.layouts.js')
     @yield('js')
+    
 </body>
 
 </html>
