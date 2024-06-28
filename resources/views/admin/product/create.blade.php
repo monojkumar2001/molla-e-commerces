@@ -75,12 +75,13 @@
                                 </div>
                                 <div class="col-md-6">
                                     <div class="mb-3">
-                                        <label for="stock_quantity" class="form-label">Color <span
+                                        <label for="color_id" class="form-label">Color <span
                                                 class='text-danger'>*</span></label>
                                         <div class=" d-flex flex-wrap gap-3">
                                             @foreach ($colors as $color)
                                                 <label for="{{ $color->id }}">
-                                                    <input type="checkbox" name="color_id[]" id="{{ $color->id }}">
+                                                    <input type="checkbox" name="color_id[]" id="{{ $color->id }}"
+                                                        value="{{ $color->id }}">
                                                     {{ $color->name }}
                                                 </label>
                                             @endforeach

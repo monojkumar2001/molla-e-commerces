@@ -49,8 +49,6 @@ class ProductController extends Controller
     {
         $data['header_title'] = 'Create Product';
         $categories = Category::orderBy("created_at", "desc")->get();
-        // $sub_categories = SubCategory::orderBy("created_at", "desc")->get();
-        // $sub_sub_categories = SubCategory::orderBy("created_at", "desc")->get();
         $brands = Brand::orderBy("created_at", "desc")->get();
         $colors = Color::orderBy("created_at", "desc")->get();
         return view('admin.product.create', compact('categories', 'brands', 'colors'), $data);
@@ -78,7 +76,7 @@ class ProductController extends Controller
             'description' => 'nullable',
             'additional_information' => 'nullable',
             'shipping_returns' => 'nullable',
-            'color_id' => 'array',
+            'color_id' => 'array|nullable',
 
         ]);
 
@@ -105,9 +103,10 @@ class ProductController extends Controller
 
         if (!empty($validatedData['color_id'])) {
             foreach ($validatedData['color_id'] as $color_id) {
-                $color = new ProductColor;
+                $color = new ProductColor();
                 $color->color_id = $color_id;
                 $color->product_id = $product->id;
+                $color->save();
             }
         }
 
