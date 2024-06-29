@@ -99,7 +99,7 @@
                                 </div>
                                 <hr>
 
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="mb-3">
                                         <label for="buy_price" class="form-label">Buy Price <span
                                                 class='text-danger'>*</span></label>
@@ -107,7 +107,7 @@
                                             autocomplete="off" placeholder="Enter Buy Price">
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="mb-3">
                                         <label for="price" class="form-label">Price <span
                                                 class='text-danger'>*</span></label>
@@ -115,7 +115,7 @@
                                             autocomplete="off" placeholder="Enter Price">
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="mb-3">
                                         <label for="discount_price" class="form-label">Discount Price <span
                                                 class='text-danger'>*</span></label>
@@ -160,6 +160,15 @@
                                     </div>
                                 </div>
                                 <br>
+                                <hr>
+                                <div class="col-md-12">
+                                    <div class="mb-3">
+                                        <label for="image" class="form-label">Image </label>
+                                        <input type="file" class="form-control" id="image" name="image[]"
+                                            autocomplete="off" onchange="previewImages(event)" multiple accept="image/*">
+                                    </div>
+                                    <div id="imagePreview" class="my-4"></div>
+                                </div>
                                 <hr>
                                 <div class="col-md-6">
                                     <div class="mb-3">
@@ -231,8 +240,8 @@
                 reader.onload = function(e) {
                     let img = document.createElement('img');
                     img.src = e.target.result;
-                    img.width = 100;
-                    img.height = 100;
+                    img.width = 150;
+                    img.height = 150;
                     document.getElementById('imagePreview').appendChild(img);
                 }
                 reader.readAsDataURL(file);

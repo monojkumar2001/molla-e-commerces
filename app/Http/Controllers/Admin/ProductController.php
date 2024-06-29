@@ -10,6 +10,7 @@ use App\Models\Brand;
 use App\Models\Category;
 use App\Models\Color;
 use App\Models\ProductColor;
+use App\Models\ProductImage;
 use App\Models\ProductSize;
 use App\Models\ProductVariant;
 use App\Models\SubCategory;
@@ -77,6 +78,7 @@ class ProductController extends Controller
             'additional_information' => 'nullable',
             'shipping_returns' => 'nullable',
             'color_id' => 'array|nullable',
+            'image' => 'array|nullable',
             'sizes' => 'array|nullable',
             'sizes.*.name' => 'nullable',
             'sizes.*.price' => 'nullable',
@@ -113,6 +115,8 @@ class ProductController extends Controller
             }
         }
 
+
+
         if (!empty($validatedData['sizes'])) {
             foreach ($validatedData['sizes'] as $size) {
                 $productSize = new ProductSize();
@@ -123,6 +127,17 @@ class ProductController extends Controller
             }
         }
 
+        if ($request->hasFile('image')) {
+            foreach ($request->file('image') as $file) {
+                $imageName = md5(uniqid()) . '.' . $file->getClientOriginalExtension();
+                $file->move(public_path('admin/assets/images/product'), $imageName);
+
+                $image = new ProductImage();
+                $image->image_name = 'admin/assets/images/product/' . $imageName;
+                $image->product_id = $product->id;
+                $image->save();
+            }
+        }
         return redirect()->route('admin.product.index')->with('success', 'Product created successfully.');
     }
 
@@ -168,7 +183,6 @@ class ProductController extends Controller
         $brands = Brand::orderBy("created_at", "desc")->get();
         $colors = Color::orderBy("created_at", "desc")->get();
         return view('admin.product.edit', compact('product', 'categories', 'brands', 'colors', 'sub_categories', 'sub_sub_categories'));
-
     }
 
     /**
@@ -197,6 +211,8 @@ class ProductController extends Controller
             'sizes' => 'array|nullable',
             'sizes.*.name' => 'nullable',
             'sizes.*.price' => 'nullable',
+            'image' => 'array|nullable',
+            'image.*' => 'nullable',
         ]);
 
         $product = Product::findOrFail($id);
@@ -242,6 +258,27 @@ class ProductController extends Controller
             }
         }
 
+        // Delete old images
+        $productImages = $product->productImages;
+        foreach ($productImages as $productImage) {
+            if (file_exists(public_path($productImage->image_name))) {
+                unlink(public_path($productImage->image_name));
+            }
+            $productImage->delete();
+        }
+
+        // Upload new images
+        if ($request->hasFile('image')) {
+            foreach ($request->file('image') as $file) {
+                $imageName = md5(uniqid()) . '.' . $file->getClientOriginalExtension();
+                $file->move(public_path('admin/assets/images/product'), $imageName);
+
+                $image = new ProductImage();
+                $image->image_name = 'admin/assets/images/product/' . $imageName;
+                $image->product_id = $product->id;
+                $image->save();
+            }
+        }
         return redirect()->route('admin.product.index')->with('success', 'Product updated successfully.');
     }
 

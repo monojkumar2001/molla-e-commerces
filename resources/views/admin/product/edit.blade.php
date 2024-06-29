@@ -177,6 +177,9 @@
                                                             @foreach ($product->productSizes as $index => $size)
                                                                 <tr>
                                                                     <td>
+                                                                        <input type="hidden"
+                                                                            name="sizes[{{ $index }}][id]"
+                                                                            value="{{ $size->id }}">
                                                                         <input type="text" class="form-control"
                                                                             value="{{ $size->name }}"
                                                                             name="sizes[{{ $index }}][name]"
@@ -198,13 +201,11 @@
                                                         <tr>
                                                             <td>
                                                                 <input type="text" class="form-control"
-                                                                    name="sizes[{{ $product->productSizes->count() }}][name]"
-                                                                    placeholder="Name">
+                                                                    name="sizes[100][name]" placeholder="Name">
                                                             </td>
                                                             <td>
                                                                 <input type="number" class="form-control"
-                                                                    name="sizes[{{ $product->productSizes->count() }}][price]"
-                                                                    placeholder="Price">
+                                                                    name="sizes[100][price]" placeholder="Price">
                                                             </td>
                                                             <td>
                                                                 <button class="btn btn-success" type="button"
@@ -212,13 +213,31 @@
                                                             </td>
                                                         </tr>
                                                     </tbody>
-
                                                 </table>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 <br>
+                                <hr>
+                                <div class="col-md-12">
+                                    <div class="mb-3">
+                                        <label for="image" class="form-label">Image</label>
+                                        <input type="file" class="form-control" id="image" name="image[]"
+                                            autocomplete="off" multiple accept="image/*">
+                                    </div>
+                                    @if ($product->productImages->count())
+                                        <div class="row">
+                                            @foreach ($product->productImages as $image)
+                                                <div class="col-md-2 position-relative">
+                                                    <img src="{{ asset($image->image_name) }}" alt=""
+                                                        class="img-thumbnail">
+                                                    {{-- <a href="{{ route('admin.product.image.delete', $image->id) }}" class="btn btn-danger btn-sm position-absolute top-0 end-0">Delete</a> --}}
+                                                </div>
+                                            @endforeach
+                                        </div>
+                                    @endif
+                                </div>
                                 <hr>
                                 <div class="col-md-6">
                                     <div class="mb-3">
@@ -298,6 +317,7 @@
             }
         }
         // Add Size input fiuld
+
         let sizeIndex = {{ $product->productSizes ? $product->productSizes->count() : 0 }};
 
         function addSize() {
@@ -305,16 +325,17 @@
             let newRow = document.createElement('tr');
 
             newRow.innerHTML = `
-        <td>
-            <input type="text" class="form-control" name="sizes[${sizeIndex}][name]" placeholder="Name">
-        </td>
-        <td>
-            <input type="number" class="form-control" name="sizes[${sizeIndex}][price]" placeholder="Price">
-        </td>
-        <td>
-            <button class="btn btn-danger" type="button" onclick="deleteRow(this)">Delete</button>
-        </td>
-    `;
+                                                        <td>
+                                                            <input type="hidden" name="sizes[${sizeIndex}][id]" value="">
+                                                            <input type="text" class="form-control" name="sizes[${sizeIndex}][name]" placeholder="Name">
+                                                        </td>
+                                                        <td>
+                                                            <input type="number" class="form-control" name="sizes[${sizeIndex}][price]" placeholder="Price">
+                                                        </td>
+                                                        <td>
+                                                            <button class="btn btn-danger" type="button" onclick="deleteRow(this)">Delete</button>
+                                                        </td>
+                                                        `;
 
             sizeTableBody.appendChild(newRow);
             sizeIndex++;
@@ -323,22 +344,10 @@
         function deleteRow(button) {
             let row = button.parentNode.parentNode;
             row.parentNode.removeChild(row);
-            updateIndices();
         }
 
-        function updateIndices() {
-            let sizeTableBody = document.getElementById('sizeTableBody');
-            let rows = sizeTableBody.getElementsByTagName('tr');
-            sizeIndex = 0;
 
-            for (let i = 0; i < rows.length - 1; i++) { // -1 to exclude the last Add button row
-                let inputs = rows[i].getElementsByTagName('input');
-                inputs[0].setAttribute('name', `sizes[${i}][name]`);
-                inputs[1].setAttribute('name', `sizes[${i}][price]`);
-            }
 
-            sizeIndex = rows.length - 1; // Update sizeIndex to match the new count of sizes
-        }
 
         // Category
         document.addEventListener('DOMContentLoaded', function() {
