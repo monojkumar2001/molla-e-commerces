@@ -151,7 +151,6 @@
                                                             <td>
                                                                 <button class="btn btn-success" type="button"
                                                                     onclick="addSize()">Add</button>
-
                                                             </td>
                                                         </tr>
                                                     </tbody>

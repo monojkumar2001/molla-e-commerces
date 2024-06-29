@@ -11,17 +11,17 @@ class Product extends Model
     protected $fillable = [
         'product_title',
         'slug',
-        'meta_title',
-        'meta_keywords',
-        'meta_description',
         'category_id',
         'sub_category_id',
         'sub_sub_category_id',
         'brand_id',
-        'image',
+        'buy_price',
         'price',
-        'old_price',
+        'discount_price',
         'stock_quantity',
+        'meta_title',
+        'meta_keywords',
+        'meta_description',
         'short_description',
         'description',
         'additional_information',
@@ -48,10 +48,14 @@ class Product extends Model
 
     public function variants()
     {
-        return $this->hasMany(ProductVariant::class,'product_id');
+        return $this->hasMany(ProductVariant::class, 'product_id');
     }
     public function productColors()
     {
-        return $this->hasMany(ProductColor::class,'product_id');
+        return $this->hasMany(ProductColor::class, 'product_id');
+    }
+    public function productSizes()
+    {
+        return $this->hasMany(ProductSize::class, 'product_id');
     }
 }

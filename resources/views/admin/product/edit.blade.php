@@ -55,7 +55,7 @@
                                             <option value="">Select Sub Category</option>
                                             @foreach ($sub_categories as $sub_category)
                                                 <option value="{{ $sub_category->id }}"
-                                                    {{ $sub_category->id == $product_id->id ? 'selected' : '' }}>
+                                                    {{ $sub_category->id == $product->sub_category_id ? 'selected' : '' }}>
                                                     {{ $sub_category->name }}
                                                 </option>
                                             @endforeach
@@ -70,8 +70,8 @@
                                             <option value="">Select Sub Sub Category</option>
                                             @foreach ($sub_sub_categories as $sub_sub_category)
                                                 <option value="{{ $sub_sub_category->id }}"
-                                                    {{ $sub_sub_category->id == $product->id ? 'selected' : '' }}>
-                                                    {{ $sub_sub_category_id->name }}</option>
+                                                    {{ $sub_sub_category->id == $product->sub_sub_category_id ? 'selected' : '' }}>
+                                                    {{ $sub_sub_category->name }}</option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -84,7 +84,8 @@
                                             class="js-example-basic-single form-control form-select" required>
                                             @foreach ($brands as $brand)
                                                 <option value="{{ $brand->id }}"
-                                                    {{ $brand->id == $product->id ? 'selected' : '' }}>{{ $brand->name }}
+                                                    {{ $brand->id == $product->brand_id ? 'selected' : '' }}>
+                                                    {{ $brand->name }}
                                                 </option>
                                             @endforeach
                                         </select>
@@ -94,14 +95,26 @@
                                     <div class="mb-3">
                                         <label for="stock_quantity" class="form-label">Color <span
                                                 class='text-danger'>*</span></label>
-                                        <div class=" d-flex flex-wrap gap-3">
+                                        <div class="d-flex flex-wrap gap-3">
                                             @foreach ($colors as $color)
-                                                <label for="{{ $color->id }}">
-                                                    <input type="checkbox" name="color_id[]" id="{{ $color->id }}">
+                                                @php
+                                                    $checked = '';
+                                                @endphp
+                                                @if ($product->productColors)
+                                                    @foreach ($product->productColors as $pcolor)
+                                                        @if ($pcolor->color_id == $color->id)
+                                                            @php
+                                                                $checked = 'checked';
+                                                            @endphp
+                                                        @endif
+                                                    @endforeach
+                                                @endif
+                                                <label>
+                                                    <input type="checkbox" {{ $checked }} name="color_id[]"
+                                                        id="{{ $color->id }}" value="{{ $color->id }}">
                                                     {{ $color->name }}
                                                 </label>
                                             @endforeach
-
                                         </div>
                                     </div>
                                 </div>
@@ -160,22 +173,46 @@
                                                         </tr>
                                                     </thead>
                                                     <tbody id="sizeTableBody">
+                                                        @if ($product->productSizes)
+                                                            @foreach ($product->productSizes as $index => $size)
+                                                                <tr>
+                                                                    <td>
+                                                                        <input type="text" class="form-control"
+                                                                            value="{{ $size->name }}"
+                                                                            name="sizes[{{ $index }}][name]"
+                                                                            placeholder="Name">
+                                                                    </td>
+                                                                    <td>
+                                                                        <input value="{{ $size->price }}" type="number"
+                                                                            class="form-control"
+                                                                            name="sizes[{{ $index }}][price]"
+                                                                            placeholder="Price">
+                                                                    </td>
+                                                                    <td>
+                                                                        <button class="btn btn-danger" type="button"
+                                                                            onclick="deleteRow(this)">Delete</button>
+                                                                    </td>
+                                                                </tr>
+                                                            @endforeach
+                                                        @endif
                                                         <tr>
                                                             <td>
                                                                 <input type="text" class="form-control"
-                                                                    name="sizes[0][name]" placeholder="Name">
+                                                                    name="sizes[{{ $product->productSizes->count() }}][name]"
+                                                                    placeholder="Name">
                                                             </td>
                                                             <td>
-                                                                <input type="text" class="form-control"
-                                                                    name="sizes[0][price]" placeholder="Price">
+                                                                <input type="number" class="form-control"
+                                                                    name="sizes[{{ $product->productSizes->count() }}][price]"
+                                                                    placeholder="Price">
                                                             </td>
                                                             <td>
                                                                 <button class="btn btn-success" type="button"
                                                                     onclick="addSize()">Add</button>
-
                                                             </td>
                                                         </tr>
                                                     </tbody>
+
                                                 </table>
                                             </div>
                                         </div>
@@ -239,4 +276,106 @@
             </div>
         </div>
     </div>
+@endsection
+
+
+@section('js')
+    <script>
+        function previewImages(event) {
+            let files = event.target.files;
+            document.getElementById('imagePreview').innerHTML = '';
+            for (let i = 0; i < files.length; i++) {
+                let file = files[i];
+                let reader = new FileReader();
+                reader.onload = function(e) {
+                    let img = document.createElement('img');
+                    img.src = e.target.result;
+                    img.width = 100;
+                    img.height = 100;
+                    document.getElementById('imagePreview').appendChild(img);
+                }
+                reader.readAsDataURL(file);
+            }
+        }
+        // Add Size input fiuld
+        let sizeIndex = {{ $product->productSizes ? $product->productSizes->count() : 0 }};
+
+        function addSize() {
+            let sizeTableBody = document.getElementById('sizeTableBody');
+            let newRow = document.createElement('tr');
+
+            newRow.innerHTML = `
+        <td>
+            <input type="text" class="form-control" name="sizes[${sizeIndex}][name]" placeholder="Name">
+        </td>
+        <td>
+            <input type="number" class="form-control" name="sizes[${sizeIndex}][price]" placeholder="Price">
+        </td>
+        <td>
+            <button class="btn btn-danger" type="button" onclick="deleteRow(this)">Delete</button>
+        </td>
+    `;
+
+            sizeTableBody.appendChild(newRow);
+            sizeIndex++;
+        }
+
+        function deleteRow(button) {
+            let row = button.parentNode.parentNode;
+            row.parentNode.removeChild(row);
+            updateIndices();
+        }
+
+        function updateIndices() {
+            let sizeTableBody = document.getElementById('sizeTableBody');
+            let rows = sizeTableBody.getElementsByTagName('tr');
+            sizeIndex = 0;
+
+            for (let i = 0; i < rows.length - 1; i++) { // -1 to exclude the last Add button row
+                let inputs = rows[i].getElementsByTagName('input');
+                inputs[0].setAttribute('name', `sizes[${i}][name]`);
+                inputs[1].setAttribute('name', `sizes[${i}][price]`);
+            }
+
+            sizeIndex = rows.length - 1; // Update sizeIndex to match the new count of sizes
+        }
+
+        // Category
+        document.addEventListener('DOMContentLoaded', function() {
+            const categorySelect = document.getElementById('category_id');
+            const subCategorySelect = document.getElementById('sub_category_id');
+            const subSubCategorySelect = document.getElementById('sub_sub_category_id');
+
+            categorySelect.addEventListener('change', function() {
+                const categoryId = this.value;
+                fetch(`{{ url('/admin/get-sub-categories') }}/${categoryId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data);
+                        subCategorySelect.innerHTML = '<option value="">Select Sub Category</option>';
+                        data.forEach(subCategory => {
+                            subCategorySelect.innerHTML +=
+                                `<option value="${subCategory.id}">${subCategory.name}</option>`;
+                        });
+                    })
+                    .catch(error => console.error('Error fetching sub-categories:', error));
+            });
+
+            subCategorySelect.addEventListener('change', function() {
+                const subCategoryId = this.value;
+                fetch(`{{ url('/admin/get-sub-sub-categories') }}/${subCategoryId}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data);
+                        subSubCategorySelect.innerHTML =
+                            '<option value="">Select Sub Sub Category</option>';
+                        data.forEach(subSubCategory => {
+                            subSubCategorySelect.innerHTML +=
+                                `<option value="${subSubCategory.id}">${subSubCategory.name}</option>`;
+                        });
+                    })
+                    .catch(error => console.error('Error fetching sub-sub categories:', error));
+            });
+        });
+    </script>
 @endsection
