@@ -45,7 +45,7 @@ Route::namespace('App\Http\Controllers')->group(
         Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['auth', 'admin']], function () {
             Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
             Route::get('/get-sub-categories/{category_id}', [ProductController::class, 'getSubCategories'])->name('getSubCategories');
-            // Route::get('/sub-sub-categories/{sub_category_id}', [ProductController::class, 'getSubSubCategories'])->name('getSubSubCategories');
+            Route::post('/product_image_sortable', [ProductController::class, 'productImageSortable'])->name('product_image_sortable');
             Route::get('/get-sub-sub-categories/{sub_category_id}', [ProductController::class, 'getSubSubCategories'])->name('getSubSubCategories');
             Route::get('/get-sub-categories/{category_id}', [SubSubCategoryController::class, 'getSubCategories'])->name('getSubCategories');
 

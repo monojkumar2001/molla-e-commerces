@@ -23921,3 +23921,9 @@ div.tox .tox-dialog__body {
 .mce-content-body {
     color: #fff !important;
 }
+
+div#imagePreview {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}

@@ -21,6 +21,9 @@
 <script src="{{ asset('admin/assets/vendors/select2/select2.min.js') }}"></script>
 
 <script src="{{ asset('admin/assets/js/select2.js') }}"></script>
+{{-- <script src="{{ asset('admin/assets/js/jquery-3.7.1.js') }}"></script> --}}
+<script src="{{ asset('admin/assets/js/jquery-ui.js') }}"></script>
+
 
 <script>
     function deleteId(id) {

@@ -129,7 +129,7 @@
                                 </div>
                                 <hr>
 
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="mb-3">
                                         <label for="buy_price" class="form-label">Buy Price <span
                                                 class='text-danger'>*</span></label>
@@ -138,7 +138,7 @@
                                             placeholder="Enter Buy Price">
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="mb-3">
                                         <label for="price" class="form-label">Price <span
                                                 class='text-danger'>*</span></label>
@@ -147,7 +147,7 @@
                                             placeholder="Enter Price">
                                     </div>
                                 </div>
-                                <div class="col-md-6">
+                                <div class="col-md-4">
                                     <div class="mb-3">
                                         <label for="discount_price" class="form-label"
                                             value="{{ $product->name }}">Discount Price <span
@@ -227,9 +227,10 @@
                                             autocomplete="off" multiple accept="image/*">
                                     </div>
                                     @if ($product->productImages->count())
-                                        <div class="row">
+                                        <div class="row" id="sortable">
                                             @foreach ($product->productImages as $image)
-                                                <div class="col-md-2 position-relative">
+                                                <div class="col-md-2 position-relative sortable_image"
+                                                    id="{{ $image->id }}">
                                                     <img src="{{ asset($image->image_name) }}" alt=""
                                                         class="img-thumbnail">
                                                     {{-- <a href="{{ route('admin.product.image.delete', $image->id) }}" class="btn btn-danger btn-sm position-absolute top-0 end-0">Delete</a> --}}
@@ -300,6 +301,37 @@
 
 @section('js')
     <script>
+        $(function() {
+            $("#sortable").sortable({
+                update: function(event, ui) {
+                    var photo_id = [];
+                    $('.sortable_image').each(function() {
+                        var id = $(this).attr('id');
+                        photo_id.push(id);
+                    });
+
+                    $.ajax({
+                        type: "POST",
+                        url: "{{ url('admin/product_image_sortable') }}",
+                        data: {
+                            "photo_id": photo_id,
+                            "_token": "{{ csrf_token() }}"
+                        },
+                        dataType: 'json',
+                        success: function(data) {
+                            if (data.success) {
+                                console.log('Order updated successfully');
+                            }
+                        },
+                        error: function(data) {
+                            console.error('Error:', data);
+                        }
+                    });
+                }
+            });
+        });
+
+
         function previewImages(event) {
             let files = event.target.files;
             document.getElementById('imagePreview').innerHTML = '';

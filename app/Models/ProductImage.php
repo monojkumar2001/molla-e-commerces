@@ -12,6 +12,10 @@ class ProductImage extends Model
     {
         return $this->belongsTo(Product::class, 'product_id');
     }
+
+    static public function getSingle($id){
+        return self::find($id);
+    }
     public function getImage()
     {
         if (!empty($this->image_name) && file_exists('admin/assets/images/product/' . $this->image_name)) {

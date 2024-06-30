@@ -35,6 +35,23 @@ class ProductController extends Controller
         $subSubCategories = SubSubCategory::where('sub_category_id', $sub_category_id)->get();
         return response()->json($subSubCategories);
     }
+
+    public function productImageSortable(Request $request)
+    {
+        if (!empty($request->photo_id)) {
+            $i = 1;
+            foreach ($request->photo_id as $photo_id) {
+                $image = ProductImage::find($photo_id);
+                $image->order_by = $i;
+                $image->save();
+                $i++;
+            }
+            return response()->json(['success' => true]);
+        } else {
+            return response()->json(['success' => false, 'message' => 'No photo IDs provided']);
+        }
+    }
+
     public function index()
     {
         $data['header_title'] = 'Product';
