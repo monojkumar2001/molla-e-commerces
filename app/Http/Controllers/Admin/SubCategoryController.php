@@ -49,9 +49,7 @@ class SubCategoryController extends Controller
         $sub_category->meta_title = $validatedData['meta_title'];
         $sub_category->meta_keywords = $validatedData['meta_keywords'];
         $sub_category->meta_description = $validatedData['meta_description'];
-       
-        $slug = Str::lower(str_replace('', '-', '', $validatedData['name']));
-        $sub_category->slug = $slug;
+        $sub_category->slug = Str::slug($validatedData['name']);
         $status = $request->has('status') ? true : false;
         $sub_category->status = $status;
         $sub_category->save();
@@ -97,10 +95,7 @@ class SubCategoryController extends Controller
         $sub_category->meta_title = $validatedData['meta_title'];
         $sub_category->meta_keywords = $validatedData['meta_keywords'];
         $sub_category->meta_description = $validatedData['meta_description'];
-
-        
-        $slug = Str::lower(str_replace('', '-', '', $validatedData['name']));
-        $sub_category->slug = $slug;
+        $sub_category->slug = Str::slug($validatedData['name']);
         $status = $request->has('status') ? true : false;
         $sub_category->status = $status;
         $sub_category->save();

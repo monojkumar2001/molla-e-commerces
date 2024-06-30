@@ -21,7 +21,7 @@ class SubSubCategoryController extends Controller
         $sub_sub_categories = SubSubCategory::all();
         return view('admin.sub_sub_category.index', compact('sub_sub_categories'), $data);
     }
-    
+
     public function getSubCategories($category_id)
     {
         $subCategories = SubCategory::where('category_id', $category_id)->get();
@@ -58,9 +58,7 @@ class SubSubCategoryController extends Controller
         $sub_sub_category->meta_title = $validatedData['meta_title'];
         $sub_sub_category->meta_keywords = $validatedData['meta_keywords'];
         $sub_sub_category->meta_description = $validatedData['meta_description'];
-
-        $slug = Str::lower(str_replace('', '_', '', $validatedData['name']));
-        $sub_sub_category->slug = $slug;
+        $sub_sub_category->slug = Str::slug($validatedData['name']);
         $status = $request->has('status') ? true : false;
         $sub_sub_category->status = $status;
 
@@ -108,9 +106,7 @@ class SubSubCategoryController extends Controller
         $sub_sub_category->meta_title = $validatedData['meta_title'];
         $sub_sub_category->meta_keywords = $validatedData['meta_keywords'];
         $sub_sub_category->meta_description = $validatedData['meta_description'];
-
-        $slug = Str::lower(str_replace('', '_', '', $validatedData['name']));
-        $sub_sub_category->slug = $slug;
+        $sub_sub_category->slug = Str::slug($validatedData['name']);
         $status = $request->has('status') ? true : false;
         $sub_sub_category->status = $status;
 

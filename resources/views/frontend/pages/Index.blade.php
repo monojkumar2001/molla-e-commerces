@@ -9,7 +9,7 @@
                                 <div class="intro-slider intro-slider-1 owl-carousel owl-simple owl-light owl-nav-inside"
                                     data-toggle="owl"
                                     data-owl-options='{
-                                        "nav": false, 
+                                        "nav": false,
                                         "responsive": {
                                             "768": {
                                                 "nav": true
@@ -20,32 +20,23 @@
                                         <div class="intro-slide">
                                             <figure class="slide-image">
                                                 <picture>
-                                                    {{-- <source media="(max-width: 480px)"
-                                                    srcset="assets/images/slider/slide-1-480w.jpg"> --}}
                                                     <img src="{{ asset($slider->image) }}" alt="Image Desc">
                                                 </picture>
-                                            </figure><!-- End .slide-image -->
-
+                                            </figure>
                                             <div class="intro-content">
                                                 <h3 class="intro-subtitle">{{ $slider->slider_short_title }}</h3>
-                                                <!-- End .h3 intro-subtitle -->
                                                 <h1 class="intro-title">{{ $slider->slider_title }}</h1>
-                                                <!-- End .intro-title -->
-
                                                 <a href="category.html" class="btn btn-outline-white">
                                                     <span>SHOP NOW</span>
                                                     <i class="icon-long-arrow-right"></i>
                                                 </a>
-                                            </div><!-- End .intro-content -->
-                                        </div><!-- End .intro-slide -->
+                                            </div>
+                                        </div>
                                     @endforeach
-
-
-                                </div><!-- End .intro-slider owl-carousel owl-simple -->
-
-                                <span class="slider-loader"></span><!-- End .slider-loader -->
-                            </div><!-- End .intro-slider-container -->
-                        </div><!-- End .col-lg-8 -->
+                                </div>
+                                <span class="slider-loader"></span>
+                            </div>
+                        </div>
                         <div class="col-lg-4">
                             <div class="intro-banners">
                                 <div class="row row-sm">
@@ -58,42 +49,37 @@
 
                                             <div class="banner-content">
                                                 <h4 class="banner-subtitle text-darkwhite"><a href="#">Clearence</a>
-                                                </h4><!-- End .banner-subtitle -->
+                                                </h4>
                                                 <h3 class="banner-title text-white"><a href="#">Chairs & Chaises
-                                                        <br>Up to 40% off</a></h3><!-- End .banner-title -->
+                                                        <br>Up to 40% off</a></h3>
                                                 <a href="#" class="btn btn-outline-white banner-link">Shop Now<i
                                                         class="icon-long-arrow-right"></i></a>
-                                            </div><!-- End .banner-content -->
-                                        </div><!-- End .banner -->
-                                    </div><!-- End .col-md-6 col-lg-12 -->
-
+                                            </div>
+                                        </div>
+                                    </div>
                                     <div class="col-md-6 col-lg-12">
                                         <div class="banner banner-display mb-0">
                                             <a href="#">
                                                 <img src="{{ asset('frontend/assets/images/banners/home/intro/banner-2.jpg') }}"
                                                     alt="Banner">
                                             </a>
-
                                             <div class="banner-content">
                                                 <h4 class="banner-subtitle text-darkwhite"><a href="#">New in</a></h4>
-                                                <!-- End .banner-subtitle -->
                                                 <h3 class="banner-title text-white"><a href="#">Best Lighting
-                                                        <br>Collection</a></h3><!-- End .banner-title -->
+                                                        <br>Collection</a></h3>
                                                 <a href="#" class="btn btn-outline-white banner-link">Discover Now<i
                                                         class="icon-long-arrow-right"></i></a>
-                                            </div><!-- End .banner-content -->
-                                        </div><!-- End .banner -->
-                                    </div><!-- End .col-md-6 col-lg-12 -->
-                                </div><!-- End .row row-sm -->
-                            </div><!-- End .intro-banners -->
-                        </div><!-- End .col-lg-4 -->
-                    </div><!-- End .row -->
-
-                    <div class="mb-6"></div><!-- End .mb-6 -->
-
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="mb-6"></div>
                     <div class="owl-carousel owl-simple" data-toggle="owl"
                         data-owl-options='{
-                            "nav": false, 
+                            "nav": false,
                             "dots": false,
                             "margin": 30,
                             "loop": false,
@@ -138,16 +124,13 @@
                         <a href="#" class="brand">
                             <img src="{{ asset('frontend/assets/images/brands/6.png') }}" alt="Brand Name">
                         </a>
-                    </div><!-- End .owl-carousel -->
-                </div><!-- End .container -->
-            </div><!-- End .bg-lighter -->
-
-            <div class="mb-6"></div><!-- End .mb-6 -->
-
+                    </div>
+                </div>
+            </div>
+            <div class="mb-6"></div>
             <div class="container">
                 <div class="heading heading-center mb-3">
-                    <h2 class="title-lg">Trendy Products</h2><!-- End .title -->
-
+                    <h2 class="title-lg">Trendy Products</h2>
                     <ul class="nav nav-pills justify-content-center" role="tablist">
                         <li class="nav-item">
                             <a class="nav-link active" id="trendy-all-link" data-toggle="tab" href="#trendy-all-tab"
@@ -173,7 +156,7 @@
                         aria-labelledby="trendy-all-link">
                         <div class="owl-carousel owl-simple carousel-equal-height carousel-with-shadow" data-toggle="owl"
                             data-owl-options='{
-                                "nav": false, 
+                                "nav": false,
                                 "dots": true,
                                 "margin": 20,
                                 "loop": false,
@@ -420,7 +403,7 @@
                         aria-labelledby="trendy-fur-link">
                         <div class="owl-carousel owl-simple carousel-equal-height carousel-with-shadow" data-toggle="owl"
                             data-owl-options='{
-                                "nav": false, 
+                                "nav": false,
                                 "dots": true,
                                 "margin": 20,
                                 "loop": false,
@@ -515,7 +498,7 @@
                         aria-labelledby="trendy-decor-link">
                         <div class="owl-carousel owl-simple carousel-equal-height carousel-with-shadow" data-toggle="owl"
                             data-owl-options='{
-                                "nav": false, 
+                                "nav": false,
                                 "dots": true,
                                 "margin": 20,
                                 "loop": false,
@@ -598,7 +581,7 @@
                         aria-labelledby="trendy-light-link">
                         <div class="owl-carousel owl-simple carousel-equal-height carousel-with-shadow" data-toggle="owl"
                             data-owl-options='{
-                                "nav": false, 
+                                "nav": false,
                                 "dots": true,
                                 "margin": 20,
                                 "loop": false,
@@ -1396,7 +1379,7 @@
 
                     <div class="owl-carousel owl-simple carousel-with-shadow" data-toggle="owl"
                         data-owl-options='{
-                            "nav": false, 
+                            "nav": false,
                             "dots": true,
                             "items": 3,
                             "margin": 20,

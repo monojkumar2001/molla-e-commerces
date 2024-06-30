@@ -80,7 +80,7 @@
                                             <a href="#" class="forgot-link">Forgot Your Password?</a>
                                         </div>
                                     </form>
-                                  
+
                                 </div>
                                 <div class="tab-pane fade" id="register" role="tabpanel"
                                     aria-labelledby="register-tab">
@@ -146,7 +146,7 @@
                         </div>
                     </div>
                     <div class="col-xl-2-5col col-lg-5 ">
-                        <img src="assets/images/popup/newsletter/img-1.jpg" class="newsletter-img" alt="newsletter">
+                        <img src="{{ asset('frontend/assets/images/popup/newsletter/img-1.jpg') }}" class="newsletter-img" alt="newsletter">
                     </div>
                 </div>
             </div>

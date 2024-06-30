@@ -39,6 +39,10 @@ Route::get('/shop', [ShopController::class, 'shop'])->name('shop');
 Route::get('admin/login', [AuthController::class, 'login_admin'])->name('admin.login');
 Route::post('admin/login', [AuthController::class, 'Auth_login_admin']);
 Route::get('admin/logout', [AuthController::class, 'logout_admin'])->name('admin.logout');
+Route::get('/category/{category_slug}', [CategoryController::class, 'showCategory'])->name('category.show');
+Route::get('/sub-category/{sub_category_slug}', [CategoryController::class, 'showSubCategory'])->name('subCategory.show');
+Route::get('/sub-sub-category/{sub_sub_category_slug}', [CategoryController::class, 'showSubSubCategory'])->name('subSubCategory.show');
+
 
 Route::namespace('App\Http\Controllers')->group(
     function () {

@@ -37,8 +37,7 @@ class CategoryController extends Controller
         ]);
         $category = new Category();
         $category->name = $validatedData['name'];
-        $slug = Str::lower(str_replace('', '-', '', $validatedData['name']));
-        $category->slug = $slug;
+        $category->slug = Str::slug($validatedData['name']);
         $category->description = $validatedData['description'];
         $category->meta_title = $validatedData['meta_title'];
         $category->meta_keywords = $validatedData['meta_keywords'];
@@ -112,8 +111,7 @@ class CategoryController extends Controller
             $image->move(public_path('admin/assets/images/category'), $imageName);
             $category->image = 'admin/assets/images/category/' . $imageName;
         }
-        $slug = Str::lower(str_replace('', '-', '', $validatedData['name']));
-        $category->slug = $slug;
+        $category->slug = Str::slug($validatedData['name']);
         $status = $request->has('status') ? true : false;
         $category->status = $status;
         $category->save();

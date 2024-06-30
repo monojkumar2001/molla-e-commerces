@@ -40,8 +40,7 @@ class BrandController extends Controller
         ]);
         $brand = new Brand();
         $brand->name = $validatedData['name'];
-        $slug = Str::lower(str_replace('', '-', '', $validatedData['name']));
-        $brand->slug = $slug;
+        $brand->slug = Str::slug($validatedData['name']);
         $brand->meta_title = $validatedData['meta_title'];
         $brand->meta_keywords = $validatedData['meta_keywords'];
         $brand->meta_description = $validatedData['meta_description'];
