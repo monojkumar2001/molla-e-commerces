@@ -12,7 +12,6 @@ use App\Models\Color;
 use App\Models\ProductColor;
 use App\Models\ProductImage;
 use App\Models\ProductSize;
-use App\Models\ProductVariant;
 use App\Models\SubCategory;
 use App\Models\SubSubCategory;
 use Illuminate\Support\Facades\Log;
@@ -55,7 +54,7 @@ class ProductController extends Controller
     public function index()
     {
         $data['header_title'] = 'Product';
-        $products = Product::with('variants')->get();
+        $products = Product::get();
         return view('admin.product.index', compact('products'), $data);
     }
 
@@ -161,26 +160,6 @@ class ProductController extends Controller
     /**
      * Display the specified resource.
      */
-
-    public function getVariantPrice(Request $request)
-    {
-        $validatedData = $request->validate([
-            'product_id' => 'required',
-            'color' => 'nullable',
-            'size' => 'nullable'
-        ]);
-
-        $variant = ProductVariant::where('product_id', $validatedData['product_id'])
-            ->where('color', $validatedData['color'])
-            ->where('size', $validatedData['size'])
-            ->first();
-
-        if ($variant) {
-            return response()->json(['price' => $variant->price], 200);
-        } else {
-            return response()->json(['price' => 'N/A'], 200);
-        }
-    }
 
     public function show(Product $product)
     {
