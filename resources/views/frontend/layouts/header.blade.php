@@ -131,28 +131,28 @@
                             title="Browse Categories">
                             Browse Categories
                         </a>
-
                         <div class="dropdown-menu">
                             <nav class="side-nav">
                                 <ul class="menu-vertical sf-arrows sf-js-enabled" style="touch-action: pan-y;">
                                     @foreach ($categories as $category)
                                         <li class="megamenu-container">
-                                            <a class="sf-with-ul" href="javascript:;"><i
+                                            <a class="sf-with-ul"
+                                                href="{{ route('frontend.product.list', ['category' => $category->slug]) }}"><i
                                                     class="icon-concierge-bell"></i>{{ $category->name }}</a>
                                             <div class="megamenu" style="display: none;">
                                                 <div class="menu-col">
                                                     <div class="row">
                                                         @foreach ($category->subCategories as $subCategory)
                                                             <div class="col-md-4">
-                                                                <a href="{{ url($subCategory->slug) }}"
+                                                                <a href="{{ route('frontend.product.list', ['category' => $category->slug, 'subcategory' => $subCategory->slug]) }}"
                                                                     class="menu-title">{{ $subCategory->name }}</a>
-                                                                
+
                                                                 @if ($subCategory->subSubCategories->isNotEmpty())
                                                                     <ul>
                                                                         @foreach ($subCategory->subSubCategories as $subSubCategory)
                                                                             <li>
                                                                                 <a
-                                                                                    href="{{ $subSubCategory->slug }}">{{ $subSubCategory->name }}</a>
+                                                                                    href="{{ route('frontend.product.list', ['category' => $category->slug, 'subcategory' => $subCategory->slug, 'sub_sub_category' => $subSubCategory->slug]) }}">{{ $subSubCategory->name }}</a>
                                                                             </li>
                                                                         @endforeach
                                                                     </ul>
@@ -165,6 +165,7 @@
                                         </li>
                                     @endforeach
                                 </ul>
+
                             </nav>
                         </div>
                     </div>
@@ -177,7 +178,7 @@
                             </li>
 
                             <li>
-                                <a href="#">About</a>
+                                <a href="{{ route('about') }}">About</a>
                             </li>
                             <li>
                                 <a href="#">Blog</a>

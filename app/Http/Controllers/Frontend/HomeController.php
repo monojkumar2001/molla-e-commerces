@@ -10,7 +10,14 @@ class HomeController extends Controller
 {
     public function index()
     {
+        $data['meta_title'] = 'E-commerce';
+        $data['meta_keywords'] = 'hello';
+        $data['meta_description'] = 'word';
         $sliders = Slider::all();
-        return view('frontend.pages.Index', compact('sliders'));
+        return view('frontend.home.Index', compact('sliders'), $data);
+    }
+    public function about()
+    {
+        return view('frontend.about.Index');
     }
 }

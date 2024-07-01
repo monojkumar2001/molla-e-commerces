@@ -13,7 +13,8 @@ use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\ColorController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\ShopController;
-use App\Http\Controllers\ProductVariantsController;
+
+use App\Http\Controllers\Frontend\ProductController as ProductFront;
 
 /*
 |--------------------------------------------------------------------------
@@ -26,22 +27,11 @@ use App\Http\Controllers\ProductVariantsController;
 |
 */
 
-Route::get('/', function () {
-    return view('frontend.pages.Index');
-});
-
-// Frontend Route
-Route::get('/', [HomeController::class, 'index']);
-Route::get('/shop', [ShopController::class, 'shop'])->name('shop');
-
-
 
 Route::get('admin/login', [AuthController::class, 'login_admin'])->name('admin.login');
 Route::post('admin/login', [AuthController::class, 'Auth_login_admin']);
 Route::get('admin/logout', [AuthController::class, 'logout_admin'])->name('admin.logout');
-Route::get('/category/{category_slug}', [CategoryController::class, 'showCategory'])->name('category.show');
-Route::get('/sub-category/{sub_category_slug}', [CategoryController::class, 'showSubCategory'])->name('subCategory.show');
-Route::get('/sub-sub-category/{sub_sub_category_slug}', [CategoryController::class, 'showSubSubCategory'])->name('subSubCategory.show');
+
 
 
 Route::namespace('App\Http\Controllers')->group(
@@ -65,3 +55,12 @@ Route::namespace('App\Http\Controllers')->group(
         });
     }
 );
+
+
+
+
+// Frontend Route
+Route::get('/', [HomeController::class, 'index'])->name('home');
+Route::get('/about', [HomeController::class, 'about'])->name('about');
+Route::get('/{category}/{subcategory?}/{sub_sub_category?}', [ProductFront::class, 'getCategory'])->name('frontend.product.list');
+// Route::get('/{category}/{subcategory?}/{sub_sub_category?}', [ProductFront::class, 'getCategory'])->name('frontend.product.list');
