@@ -16341,3 +16341,9 @@ button:focus {
 .menu-vertical .menu-title:hover {
     color: #fcb941;
 }
+span.product-price-text.text-decoration-line-through {
+    text-decoration: line-through;
+    font-size: 12px;
+    padding-left: 10px;
+    color: #9e9e9e;
+}

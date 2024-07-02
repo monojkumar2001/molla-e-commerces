@@ -13,7 +13,7 @@ use App\Http\Controllers\Admin\BrandController;
 use App\Http\Controllers\Admin\ColorController;
 use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\ShopController;
-
+use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\Frontend\ProductController as ProductFront;
 
 /*
@@ -21,11 +21,16 @@ use App\Http\Controllers\Frontend\ProductController as ProductFront;
 | Web Routes
 |--------------------------------------------------------------------------
 |
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider and all of them will
-| be assigned to the "web" middleware group. Make something great!
-|
 */
+
+Route::get('/clear-cache', function () {
+    Artisan::call('route:clear');
+    Artisan::call('optimize');
+    Artisan::call('config:cache');
+    Artisan::call('view:cache');
+    return "Cache cleared and optimizations done successfully.";
+});
+
 
 
 Route::get('admin/login', [AuthController::class, 'login_admin'])->name('admin.login');
@@ -63,4 +68,4 @@ Route::namespace('App\Http\Controllers')->group(
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/about', [HomeController::class, 'about'])->name('about');
 Route::get('/{category}/{subcategory?}/{sub_sub_category?}', [ProductFront::class, 'getCategory'])->name('frontend.product.list');
-// Route::get('/{category}/{subcategory?}/{sub_sub_category?}', [ProductFront::class, 'getCategory'])->name('frontend.product.list');
+Route::get('/product/{slug}', [ProductFront::class, 'show'])->name('frontend.product.show');

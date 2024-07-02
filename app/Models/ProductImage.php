@@ -8,20 +8,23 @@ use Illuminate\Database\Eloquent\Model;
 class ProductImage extends Model
 {
     use HasFactory;
+    protected $fillable = ['product_id', 'image_name', 'order_by'];
+
     public function product()
     {
         return $this->belongsTo(Product::class, 'product_id');
     }
-
-    static public function getSingle($id){
-        return self::find($id);
-    }
     public function getImage()
     {
-        if (!empty($this->image_name) && file_exists('admin/assets/images/product/' . $this->image_name)) {
-            return asset('admin/assets/images/product/' . $this->image_name);
-        } else {
-            return '';
-        }
+        // Assuming you store images in the public directory under 'images/products/'
+        return asset($this->image_name);
     }
+    // public function getImage()
+    // {
+    //     if (!empty($this->image_name) && file_exists(public_path('admin/assets/images/product/' . $this->image_name))) {
+    //         return asset('admin/assets/images/product/' . $this->image_name);
+    //     } else {
+    //         return asset('default-image.jpg');
+    //     }
+    // }
 }

@@ -9,7 +9,7 @@ class Product extends Model
 {
     use HasFactory;
     protected $fillable = [
-        'product_title',
+        'title',
         'slug',
         'category_id',
         'sub_category_id',
@@ -46,7 +46,7 @@ class Product extends Model
         return $this->belongsTo(Brand::class, 'brand_id');
     }
 
-   
+
     public function productColors()
     {
         return $this->hasMany(ProductColor::class, 'product_id');
