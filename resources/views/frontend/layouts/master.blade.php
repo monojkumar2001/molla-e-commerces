@@ -27,6 +27,7 @@
     <meta name="theme-color" content="#ffffff">
     <!-- CSS -->
     @include('frontend.layouts.style')
+    @yield('style')
 </head>
 
 <body>
@@ -123,7 +124,7 @@
         </div>
     </div>
 
-    <div class="container newsletter-popup-container mfp-hide" id="newsletter-popup-form">
+    {{-- <div class="container newsletter-popup-container mfp-hide" id="newsletter-popup-form">
         <div class="row justify-content-center">
             <div class="col-10">
                 <div class="row no-gutters bg-white newsletter-popup-content">
@@ -157,8 +158,9 @@
                 </div>
             </div>
         </div>
-    </div>
+    </div> --}}
     @include('frontend.layouts.js')
+    @yield('js')
 </body>
 
 </html>

@@ -22,4 +22,10 @@ class SubCategory extends Model
     {
         return $this->hasMany(SubSubCategory::class, 'sub_category_id');
     }
+
+    public function TotalProduct()
+    {
+        return $this->hasMany(Product::class, 'sub_category_id')
+            ->count();
+    }
 }
