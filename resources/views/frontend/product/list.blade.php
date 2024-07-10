@@ -76,7 +76,7 @@
 
                         </div>
                         @if ($products->isEmpty())
-                            <span class=" text-center d-flex justify-content-center">Product not found</span>
+                            <span class=" text-center d-flex justify-content-center"></span>
                         @else
                             <nav aria-label="Page navigation">
                                 <ul class="pagination justify-content-center">
@@ -121,18 +121,21 @@
                         @endif
                     </div>
                     <aside class="col-lg-3 order-lg-first">
-                        <form action="" method="POST" id="FilterForm">
-                            {{ csrf_field() }}
-                            <input type="text" name="sub_category_id" id="get_sub_category_id">
-                            <input type="text" name="brand_id" id="get_brand_id">
-                            <input type="text" name="color_id" id="get_color_id">
-                            <input type="text" name="sort_by_id" id="get_sort_by_id">
+                        <form action="{{ url('get_filter_product') }}" method="POST" id="FilterForm">
+                            @csrf
+                            <input type="hidden" name="sub_category_id" id="get_sub_category_id">
+                            <input type="hidden" name="brand_id" id="get_brand_id">
+                            <input type="hidden" name="color_id" id="get_color_id">
+                            <input type="hidden" name="sort_by_id" id="get_sort_by_id">
+                            <input type="text" name="start_price" id="get_start_price">
+                            <input type="text" name="end_price" id="get_end_price">
                         </form>
                         <div class="sidebar sidebar-shop">
                             <div class="widget widget-clean">
                                 <label>Filters:</label>
                                 <a href="#" class="sidebar-filter-clear">Clean All</a>
                             </div>
+
                             <div class="widget widget-collapsible">
                                 <h3 class="widget-title">
                                     <a data-toggle="collapse" href="#widget-1" role="button" aria-expanded="true"
@@ -221,7 +224,7 @@
                                         </div><!-- End .filter-items -->
                                     </div><!-- End .widget-body -->
                                 </div><!-- End .collapse -->
-                            </div><!-- End .widget -->
+                            </div>
 
                             <div class="widget widget-collapsible">
                                 <h3 class="widget-title">`
@@ -267,30 +270,27 @@
                                     </div>
                                 </div>
                             </div>
-
                             <div class="widget widget-collapsible">
                                 <h3 class="widget-title">
                                     <a data-toggle="collapse" href="#widget-5" role="button" aria-expanded="true"
                                         aria-controls="widget-5">
                                         Price
                                     </a>
-                                </h3><!-- End .widget-title -->
-
+                                </h3>
                                 <div class="collapse show" id="widget-5">
                                     <div class="widget-body">
                                         <div class="filter-price">
                                             <div class="filter-price-text">
                                                 Price Range:
                                                 <span id="filter-price-range"></span>
-                                            </div><!-- End .filter-price-text -->
-
-                                            <div id="price-slider"></div><!-- End #price-slider -->
-                                        </div><!-- End .filter-price -->
-                                    </div><!-- End .widget-body -->
-                                </div><!-- End .collapse -->
-                            </div><!-- End .widget -->
-                        </div><!-- End .sidebar sidebar-shop -->
-                    </aside><!-- End .col-lg-3 -->
+                                            </div>
+                                            <div id="price-slider"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </aside>
                 </div>
             </div>
         </div>
@@ -299,13 +299,24 @@
 
 @section('js')
     <script>
-         function FilterForm() {
-            $.ajax({
+        var xhr = null;
+
+        function FilterForm() {
+            if (xhr !== null && xhr.readyState !== 4) {
+                xhr.abort();
+            }
+            xhr = $.ajax({
                 type: "POST",
                 url: "{{ url('get_filter_product') }}",
                 data: $('#FilterForm').serialize(),
+                beforeSend: function() {
+                    $('#product-list').html('<div>Loading...</div>');
+                },
                 success: function(response) {
                     $('#product-list').html(response.html);
+                },
+                error: function() {
+                    $('#product-list').html('<div>Error loading products. Please try again.</div>');
                 }
             });
         }
@@ -361,6 +372,36 @@
             FilterForm();
         })
 
-      
+        priceId = 0;
+        if (typeof noUiSlider === 'object') {
+            var priceSlider = document.getElementById('price-slider');
+            noUiSlider.create(priceSlider, {
+                start: [0, 100],
+                connect: true,
+                step: 50,
+                margin: 50,
+                range: {
+                    'min': 0,
+                    'max': 1000
+                },
+                tooltips: true,
+                format: wNumb({
+                    decimals: 0,
+                    prefix: '৳'
+                })
+            });
+            priceSlider.noUiSlider.on('update', function(values, handle) {
+                console.log(values);
+                var start_price = values[0];
+                var end_price = values[1];
+                $('#get_start_price').val(start_price);
+                $('#get_end_price').val(end_price);
+                if (priceId == 0 || priceId == 1) {
+                    priceId++;
+                } else {
+                    FilterForm();
+                }
+            });
+        }
     </script>
 @endsection

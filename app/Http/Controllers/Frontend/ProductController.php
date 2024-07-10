@@ -69,6 +69,12 @@ class ProductController extends Controller
             });
         }
 
+        if ($request->filled('start_price') && $request->filled('end_price')) {
+            $start_price = (int) str_replace('৳', '', $request->start_price);
+            $end_price = (int) str_replace('৳', '', $request->end_price);
+            $products->whereBetween('discount_price', [$start_price, $end_price]);
+        }
+
         if ($request->filled('sort_by_id')) {
             $sortBy = $request->sort_by_id;
             switch ($sortBy) {
@@ -87,8 +93,7 @@ class ProductController extends Controller
             }
         }
 
-        $products = $products->with('productImages')->get();
-
+        $products = $products->with('productImages', 'category')->get();
         $html = view('frontend.product.list_items', compact('products'))->render();
 
         return response()->json(['html' => $html]);

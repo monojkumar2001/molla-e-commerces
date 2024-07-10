@@ -16,11 +16,12 @@
             </figure>
             <div class="product-body">
                 <div class="product-cat">
-                    <a
-                        href="{{ route('frontend.product.list', ['category' => $category->slug]) }}">{{ $product->category->name }}</a>
+                    <a href="{{ route('frontend.product.list', ['category' => $product->sub_category->slug]) }}">
+                        {{ $product->sub_category->name }}
+                    </a>
                 </div>
-                <h3 class="product-title"><a
-                        href="{{ route('frontend.product.show', $product->slug) }}">{{ $product->title }}</a>
+                <h3 class="product-title">
+                    <a href="{{ route('frontend.product.show', $product->slug) }}">{{ $product->title }}</a>
                 </h3>
                 <div class="product-price">
                     ৳ {{ $product->discount_price }}
