@@ -123,12 +123,18 @@
                     <aside class="col-lg-3 order-lg-first">
                         <form action="{{ url('get_filter_product') }}" method="POST" id="FilterForm">
                             @csrf
+                            <input type="text" name="old_sub_category_id"
+                                value="{{ !empty($sub_category) ? $sub_category->id : '' }}" >
+                            <input type="text" name="old_category_id"
+                                value="{{ !empty($category) ? $category->id : '' }}" >
+
+
                             <input type="hidden" name="sub_category_id" id="get_sub_category_id">
                             <input type="hidden" name="brand_id" id="get_brand_id">
                             <input type="hidden" name="color_id" id="get_color_id">
                             <input type="hidden" name="sort_by_id" id="get_sort_by_id">
-                            <input type="text" name="start_price" id="get_start_price">
-                            <input type="text" name="end_price" id="get_end_price">
+                            <input type="hidden" name="start_price" id="get_start_price">
+                            <input type="hidden" name="end_price" id="get_end_price">
                         </form>
                         <div class="sidebar sidebar-shop">
                             <div class="widget widget-clean">
@@ -237,7 +243,7 @@
                                     <div class="widget-body">
                                         <div class="filter-colors">
                                             @foreach ($colors as $color)
-                                                <a href="javascrpit:;" class="ChangeColor" data-val="0"
+                                                <a href="javascript:;" class="ChangeColor" data-val="0"
                                                     id="{{ $color->id }}"
                                                     style="background: {{ $color->code }};"><span
                                                         class="sr-only">{{ $color->name }}</span></a>
@@ -376,13 +382,13 @@
         if (typeof noUiSlider === 'object') {
             var priceSlider = document.getElementById('price-slider');
             noUiSlider.create(priceSlider, {
-                start: [0, 100],
+                start: [0, 1000],
                 connect: true,
                 step: 50,
                 margin: 50,
                 range: {
                     'min': 0,
-                    'max': 1000
+                    'max': 5000
                 },
                 tooltips: true,
                 format: wNumb({
@@ -391,7 +397,6 @@
                 })
             });
             priceSlider.noUiSlider.on('update', function(values, handle) {
-                console.log(values);
                 var start_price = values[0];
                 var end_price = values[1];
                 $('#get_start_price').val(start_price);

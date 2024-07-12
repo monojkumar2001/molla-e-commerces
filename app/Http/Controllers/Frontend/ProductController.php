@@ -10,6 +10,7 @@ use App\Models\Color;
 use App\Models\Product;
 use App\Models\SubCategory;
 use App\Models\SubSubCategory;
+use Illuminate\Support\Facades\Log;
 
 class ProductController extends Controller
 {
@@ -55,6 +56,18 @@ class ProductController extends Controller
         if ($request->filled('sub_category_id')) {
             $subCategoryIds = explode(',', rtrim($request->sub_category_id, ','));
             $products->whereIn('sub_category_id', $subCategoryIds);
+        } else {
+            if ($request->filled('old_category_id')) { {
+                    $products->where(
+                        'category_id',
+                        $request->filled('old_category_id')
+                    );
+                }
+            }
+            if ($request->filled('old_sub_category_id')) { {
+                    $products->where('old_sub_category_id', $request->old_sub_category_id);
+                }
+            }
         }
 
         if ($request->filled('brand_id')) {
@@ -74,6 +87,8 @@ class ProductController extends Controller
             $end_price = (int) str_replace('৳', '', $request->end_price);
             $products->whereBetween('discount_price', [$start_price, $end_price]);
         }
+
+
 
         if ($request->filled('sort_by_id')) {
             $sortBy = $request->sort_by_id;
