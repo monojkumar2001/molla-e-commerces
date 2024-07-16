@@ -67,6 +67,6 @@ Route::namespace('App\Http\Controllers')->group(
 // Frontend Route
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/about', [HomeController::class, 'about'])->name('about');
+Route::get('/{slug}', [ProductFront::class, 'getSingleProduct'])->name('frontend.product.show');
 Route::get('/{category}/{subcategory?}/{sub_sub_category?}', [ProductFront::class, 'getCategory'])->name('frontend.product.list');
 Route::post('/get_filter_product', [ProductFront::class, 'getFilterProduct'])->name('get_filter_product');
-Route::get('/product/{slug}', [ProductFront::class, 'show'])->name('frontend.product.show');

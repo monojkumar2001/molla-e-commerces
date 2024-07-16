@@ -9,5 +9,6 @@
  <script src="{{ asset('frontend/assets/js/bootstrap-input-spinner.js') }}"></script>
  <script src="{{ asset('frontend/assets/js/jquery.magnific-popup.min.js') }}"></script>
  <!-- Main JS File -->
+
  <script src="{{ asset('frontend/assets/js/nouislider.min.js') }}"></script>
  <script src="{{ asset('frontend/assets/js/main.js') }}"></script>

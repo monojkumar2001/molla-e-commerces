@@ -26,8 +26,7 @@
                     <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
                     <li class="breadcrumb-item"><a href="javascript:;">Shop</a></li>
                     @if (!empty($sub_sub_category))
-                        <li class="breadcrumb-item"><a
-                                href="{{ route('frontend.product.list', ['category' => $category->slug]) }}">{{ $category->name }}</a>
+                        <li class="breadcrumb-item"><a href="javascript:;">{{ $category->name }}</a>
                         </li>
                         <li class="breadcrumb-item"><a
                                 href="{{ route('frontend.product.list', ['category' => $category->slug, 'subcategory' => $sub_category->slug]) }}">{{ $sub_category->name }}</a>
@@ -124,9 +123,9 @@
                         <form action="{{ url('get_filter_product') }}" method="POST" id="FilterForm">
                             @csrf
                             <input type="text" name="old_sub_category_id"
-                                value="{{ !empty($sub_category) ? $sub_category->id : '' }}" >
+                                value="{{ !empty($sub_category) ? $sub_category->id : '' }}">
                             <input type="text" name="old_category_id"
-                                value="{{ !empty($category) ? $category->id : '' }}" >
+                                value="{{ !empty($category) ? $category->id : '' }}">
 
 
                             <input type="hidden" name="sub_category_id" id="get_sub_category_id">

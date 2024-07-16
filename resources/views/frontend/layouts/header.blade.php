@@ -78,7 +78,8 @@
                                 </div>
                                 <figure class="product-image-container">
                                     <a href="product.html" class="product-image">
-                                        <img src="{{ asset('frontend/assets/images/products/cart/product-1.jpg') }}" alt="product">
+                                        <img src="{{ asset('frontend/assets/images/products/cart/product-1.jpg') }}"
+                                            alt="product">
                                     </a>
                                 </figure>
                                 <a href="#" class="btn-remove" title="Remove Product"><i
@@ -136,8 +137,7 @@
                                 <ul class="menu-vertical sf-arrows sf-js-enabled" style="touch-action: pan-y;">
                                     @foreach ($categories as $category)
                                         <li class="megamenu-container">
-                                            <a class="sf-with-ul"
-                                                href="{{ route('frontend.product.list', ['category' => $category->slug]) }}"><i
+                                            <a class="sf-with-ul" href="javascript:;"><i
                                                     class="icon-concierge-bell"></i>{{ $category->name }}</a>
                                             <div class="megamenu" style="display: none;">
                                                 <div class="menu-col">

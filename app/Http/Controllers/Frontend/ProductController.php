@@ -16,7 +16,7 @@ class ProductController extends Controller
 {
     public function getCategory($slug, $subSlug = null, $subSubSlug = null)
     {
-        $category = Category::where('slug', $slug)->firstOrFail();
+        $category = Category::where('slug', $slug)->first();
         $products = Product::where('category_id', $category->id);
         $sub_category = null;
         $sub_sub_category = null;
@@ -114,9 +114,16 @@ class ProductController extends Controller
         return response()->json(['html' => $html]);
     }
 
-    public function show($slug)
+    public function getSingleProduct($slug)
     {
-        $product = Product::where('slug', $slug)->firstOrFail();
-        return view('frontend.product.show', compact('product'));
+        $product = Product::where("slug", $slug)->first();
+        if (!$product) {
+            abort(404);
+        }
+
+        $data['meta_title'] = $product->meta_title;
+        $data['meta_keywords'] = $product->meta_keywords;
+        $data['meta_description'] = $product->meta_description;
+        return view('frontend.product.show', compact('product'), $data);
     }
 }
