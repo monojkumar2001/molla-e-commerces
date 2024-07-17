@@ -120,10 +120,13 @@ class ProductController extends Controller
         if (!$product) {
             abort(404);
         }
-
+        $relatedProducts = Product::where('sub_category_id', $product->sub_category_id)
+            ->where('id', '!=', $product->id)
+            ->take(10)
+            ->get();
         $data['meta_title'] = $product->meta_title;
         $data['meta_keywords'] = $product->meta_keywords;
         $data['meta_description'] = $product->meta_description;
-        return view('frontend.product.show', compact('product'), $data);
+        return view('frontend.product.show', compact('product','relatedProducts'), $data);
     }
 }
