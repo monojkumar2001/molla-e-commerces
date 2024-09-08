@@ -129,4 +129,7 @@ class ProductController extends Controller
         $data['meta_description'] = $product->meta_description;
         return view('frontend.product.show', compact('product','relatedProducts'), $data);
     }
+    public function getProductSearch(){
+        
+    }
 }

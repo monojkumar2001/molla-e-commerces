@@ -15,6 +15,7 @@ use App\Http\Controllers\Frontend\HomeController;
 use App\Http\Controllers\Frontend\ShopController;
 use Illuminate\Support\Facades\Artisan;
 use App\Http\Controllers\Frontend\ProductController as ProductFront;
+use App\Http\Controllers\PaymentController;
 
 /*
 |--------------------------------------------------------------------------
@@ -67,6 +68,9 @@ Route::namespace('App\Http\Controllers')->group(
 // Frontend Route
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/about', [HomeController::class, 'about'])->name('about');
+Route::post('/product/add-to-cart', [PaymentController::class, 'addToCart'])->name('add_to_cart');
+
+Route::get('/search', [ProductFront::class, 'getProductSearch']);
 Route::get('/{slug}', [ProductFront::class, 'getSingleProduct'])->name('frontend.product.show');
 Route::get('/{category}/{subcategory?}/{sub_sub_category?}', [ProductFront::class, 'getCategory'])->name('frontend.product.list');
 Route::post('/get_filter_product', [ProductFront::class, 'getFilterProduct'])->name('get_filter_product');

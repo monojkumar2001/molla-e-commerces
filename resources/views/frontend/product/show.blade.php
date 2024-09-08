@@ -4,7 +4,7 @@
         <nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
             <div class="container d-flex align-items-center">
                 <ol class="breadcrumb">
-                    <li class="breadcrumb-item"><a href="index.html">Home</a></li>
+                    <li class="breadcrumb-item"><a href="/">Home</a></li>
                     <li class="breadcrumb-item"><a href="javascript:;">{{ $product->category->name }}</a></li>
                     <li class="breadcrumb-item"><a
                             href="{{ route('frontend.product.list', [$product->category->slug, $product->sub_category->slug]) }}">{{ $product->sub_category->name }}</a>
@@ -26,7 +26,7 @@
                                     @if ($product->productImages->first())
                                         <img id="product-zoom" src="{{ $product->productImages->first()->getImage() }}"
                                             data-zoom-image="{{ $product->productImages->first()->getImage() }}"
-                                            alt={{ $product->title }}">
+                                            alt={{ $product->title }}>
                                     @else
                                         <img src="{{ asset('path/to/default/image.jpg') }}" alt="{{ $product->title }}"
                                             class="product-image">
@@ -58,61 +58,71 @@
                                     <a class="ratings-text" href="#product-review-link" id="review-link">( 2 Reviews )</a>
                                 </div>
                                 <div class="product-price">
-                                    ৳ {{ $product->discount_price }}
+                                    ৳ <span id="getTotalPrice">{{ $product->discount_price }}</span>
                                     <span
                                         class="product-price-text text-decoration-line-through">৳{{ $product->price }}</span>
                                 </div>
                                 <div class="product-content">
                                     <p>{!! $product->short_description !!}</p>
                                 </div>
-                                @if ($product->productColors->count())
+                                <form action="{{route('add_to_cart')}}" method="post">
+                                    @csrf
+                                    <input type="hidden" name="product_id" value="{{$product->id}}" id="">
+                                    @if ($product->productColors->count())
+                                        <div class="details-filter-row details-row-size">
+                                            <label for="color_id">Color:</label>
+                                            <div class="select-custom">
+                                                <select name="color_id" required id="color_id" class="form-control">
+                                                    <option value="">Select a color</option>
+                                                    @foreach ($product->productColors as $productColor)
+                                                        <option value="{{ $productColor->color->id }}">
+                                                            {{ $productColor->color->name }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                    @endif
+                                    @if ($product->productSizes->count())
+                                        <div class="details-filter-row details-row-size">
+                                            <label for="size_id">Size:</label>
+                                            <div class="select-custom">
+                                                <select name="size_id" required id="size_id"
+                                                    class="form-control getSizePrice">
+                                                    <option data-price="0" value="">Select a size</option>
+                                                    @foreach ($product->productSizes as $productSize)
+                                                        <option
+                                                            data-price="{{ !empty($productSize->price) ? $productSize->price : 0 }}"
+                                                            value="{{ $productSize->id }}">
+                                                            {{ $productSize->name }} @if (!empty($productSize->price))
+                                                                (৳{{ $productSize->price }})
+                                                            @endif
+                                                        </option>
+                                                    @endforeach
+                                                </select>
+                                            </div>
+                                        </div>
+                                    @endif
                                     <div class="details-filter-row details-row-size">
-                                        <label>Color:</label>
-                                        <div class="select-custom">
-                                            <select name="color" id="color" class="form-control">
-                                                <option value="">Select a color</option>
-                                                @foreach ($product->productColors as $productColor)
-                                                    <option value="{{ $productColor->color->id }}">
-                                                        {{ $productColor->color->name }}</option>
-                                                @endforeach
-                                            </select>
+                                        <label for="qty">Qty:</label>
+                                        <div class="product-details-quantity">
+                                            <input type="number" id="qty" class="form-control" value="1"
+                                                min="1" max="10" step="1" name="qty" required
+                                                data-decimals="0" required>
                                         </div>
                                     </div>
-                                @endif
-                                @if ($product->productSizes->count())
-                                    <div class="details-filter-row details-row-size">
-                                        <label for="size">Size:</label>
-                                        <div class="select-custom">
-                                            <select name="size" id="size" class="form-control">
-                                                <option value="">Select a size</option>
-                                                @foreach ($product->productSizes as $productSize)
-                                                    <option value="{{ $productSize->id }}">
-                                                        {{ $productSize->name }} @if (!empty($productSize->price))
-                                                            (৳{{ $productSize->price }})
-                                                        @endif
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                        </div>
-                                    </div>
-                                @endif
-                                <div class="details-filter-row details-row-size">
-                                    <label for="qty">Qty:</label>
-                                    <div class="product-details-quantity">
-                                        <input type="number" id="qty" class="form-control" value="1"
-                                            min="1" max="10" step="1" data-decimals="0" required>
-                                    </div>
-                                </div>
-                                <div class="product-details-action">
-                                    <a href="#" class="btn-product btn-cart"><span>add to cart</span></a>
+                                    <div class="product-details-action">
+                                        {{-- <a href="#" class=""></a> --}}
+                                        <button type="submit" class="btn-product btn-cart"
+                                            style="background: none; color:#fcb941; font-size:16px">add to cart</button>
 
-                                    <div class="details-action-wrapper">
-                                        <a href="#" class="btn-product btn-wishlist" title="Wishlist"><span>Add to
-                                                Wishlist</span></a>
-                                        {{-- <a href="#" class="btn-product btn-compare" title="Compare"><span>Add to
+                                        <div class="details-action-wrapper">
+                                            <a href="#" class="btn-product btn-wishlist" title="Wishlist"><span>Add to
+                                                    Wishlist</span></a>
+                                            {{-- <a href="#" class="btn-product btn-compare" title="Compare"><span>Add to
                                                 Compare</span></a> --}}
+                                        </div>
                                     </div>
-                                </div>
+                                </form>
                                 <div class="product-details-footer">
                                     <div class="product-cat">
                                         <span>Brand:</span>
@@ -327,4 +337,12 @@
 @endsection
 @section('js')
     <script src="{{ asset('frontend/assets/js/jquery.elevateZoom.min.js') }}"></script>
+    <script>
+        $('.getSizePrice').change(function() {
+            var product_price = '{{ $product->discount_price }}'
+            var price = $('option:selected', this).attr('data-price');
+            var total = parseFloat(product_price) + parseFloat(price);
+            $('#getTotalPrice').html(total.toFixed(2))
+        });
+    </script>
 @endsection
