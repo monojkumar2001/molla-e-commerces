@@ -9,6 +9,14 @@ use App\Models\ProductSize;
 use Cart;
 class PaymentController extends Controller
 {
+    public function cart(Request $request)
+    {
+        dd(Cart::getContent());
+    }
+
+
+
+
     public function addToCart(Request $request)
     {
         $getProduct = Product::getSingle($request->product_id);
@@ -24,17 +32,21 @@ class PaymentController extends Controller
             $size_id = 0;
         }
         $color_id = !empty($request->color_id) ? $request->color_id : 0;
+        $quantity = !empty($request->qty) ? $request->qty : 1 ;
+
         Cart::add(array(
             'id' => $getProduct->id, // inique row ID
             'name' => 'Sample Item',
             'price' => $total,
-            'quantity' => 4,
+            'quantity' => $quantity,
             'attributes' => array(
                 'size_id' => $size_id,
                 'color_id' => $color_id
             )
         ));
-      
-        return redirect()->back();
+
+        return redirect()->back()->with('success', 'Product added to cart successfully.');
     }
+
+
 }

@@ -40,27 +40,28 @@ Route::get('admin/logout', [AuthController::class, 'logout_admin'])->name('admin
 
 
 
-Route::namespace('App\Http\Controllers')->group(
-    function () {
-        Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['auth', 'admin']], function () {
-            Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-            Route::get('/get-sub-categories/{category_id}', [ProductController::class, 'getSubCategories'])->name('getSubCategories');
-            Route::post('/product_image_sortable', [ProductController::class, 'productImageSortable'])->name('product_image_sortable');
-            Route::get('/get-sub-sub-categories/{sub_category_id}', [ProductController::class, 'getSubSubCategories'])->name('getSubSubCategories');
-            Route::get('/get-sub-categories/{category_id}', [SubSubCategoryController::class, 'getSubCategories'])->name('getSubCategories');
+Route::
+        namespace('App\Http\Controllers')->group(
+        function () {
+            Route::group(['as' => 'admin.', 'prefix' => 'admin', 'namespace' => 'Admin', 'middleware' => ['auth', 'admin']], function () {
+                Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+                Route::get('/get-sub-categories/{category_id}', [ProductController::class, 'getSubCategories'])->name('getSubCategories');
+                Route::post('/product_image_sortable', [ProductController::class, 'productImageSortable'])->name('product_image_sortable');
+                Route::get('/get-sub-sub-categories/{sub_category_id}', [ProductController::class, 'getSubSubCategories'])->name('getSubSubCategories');
+                Route::get('/get-sub-categories/{category_id}', [SubSubCategoryController::class, 'getSubCategories'])->name('getSubCategories');
 
 
-            Route::resource('/admin_list', 'AdminController');
-            Route::resource('/slider', 'SliderController');
-            Route::resource('/category', 'CategoryController');
-            Route::resource('/sub_category', 'SubCategoryController');
-            Route::resource('/sub_sub_category', 'SubSubCategoryController');
-            Route::resource('/brand', 'BrandController');
-            Route::resource('/color', 'ColorController');
-            Route::resource('/product', 'ProductController');
-        });
-    }
-);
+                Route::resource('/admin_list', 'AdminController');
+                Route::resource('/slider', 'SliderController');
+                Route::resource('/category', 'CategoryController');
+                Route::resource('/sub_category', 'SubCategoryController');
+                Route::resource('/sub_sub_category', 'SubSubCategoryController');
+                Route::resource('/brand', 'BrandController');
+                Route::resource('/color', 'ColorController');
+                Route::resource('/product', 'ProductController');
+            });
+        }
+    );
 
 
 
@@ -69,6 +70,8 @@ Route::namespace('App\Http\Controllers')->group(
 Route::get('/', [HomeController::class, 'index'])->name('home');
 Route::get('/about', [HomeController::class, 'about'])->name('about');
 Route::post('/product/add-to-cart', [PaymentController::class, 'addToCart'])->name('add_to_cart');
+Route::get('cart', [PaymentController::class, 'cart'])->name('cart');
+Route::get('checkout', [PaymentController::class, 'checkout'])->name('checkout');
 
 Route::get('/search', [ProductFront::class, 'getProductSearch']);
 Route::get('/{slug}', [ProductFront::class, 'getSingleProduct'])->name('frontend.product.show');
